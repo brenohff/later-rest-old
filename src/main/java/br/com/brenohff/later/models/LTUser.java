@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
@@ -110,6 +111,7 @@ public class LTUser implements Serializable {
 		this.face_id = face_id;
 	}
 
+	@JsonIgnore
 	public Set<LTEvent> getEvents() {
 		return events;
 	}
