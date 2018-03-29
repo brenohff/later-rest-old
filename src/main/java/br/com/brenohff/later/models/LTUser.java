@@ -27,6 +27,9 @@ public class LTUser implements Serializable {
 
 	@Column(unique = true)
 	private String email;
+	
+	@OneToMany(mappedBy = "user")
+	private Set<LTEvent> events;
 
 	private String name;
 	private String birthday;
@@ -35,9 +38,6 @@ public class LTUser implements Serializable {
 	private String image;
 	private String image_long;
 	private String face_id;
-
-	@OneToMany(mappedBy = "user")
-	private Set<LTEvent> events;
 
 	public Long getId() {
 		return id;

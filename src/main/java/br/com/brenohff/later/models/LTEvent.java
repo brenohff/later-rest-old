@@ -30,71 +30,57 @@ public class LTEvent implements Serializable{
     private LTUser user;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
-	private Date dt_publicacao = new Date();
+	private Date dt_post = new Date();
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
-	private Date dt_evento = new Date();
+	private Date dt_event = new Date();
 	
-	private String titulo;
-	private String descricao;
-	private double valor;
-
+	private String title;
+	private String description;
+	private double value;
+	
+	
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public String getTitulo() {
-		return titulo;
-	}
-
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public double getValor() {
-		return valor;
-	}
-
-	public void setValor(double valor) {
-		this.valor = valor;
-	}
-
 	public LTUser getUser() {
 		return user;
 	}
-
 	public void setUser(LTUser user) {
 		this.user = user;
 	}
-
-	public Date getDt_publicacao() {
-		return dt_publicacao;
+	public Date getDt_post() {
+		return dt_post;
 	}
-
-	public void setDt_publicacao(Date dt_publicacao) {
-		this.dt_publicacao = dt_publicacao;
+	public void setDt_post(Date dt_post) {
+		this.dt_post = dt_post;
 	}
-
-	public Date getDt_evento() {
-		return dt_evento;
+	public Date getDt_event() {
+		return dt_event;
 	}
-
-	public void setDt_evento(Date dt_evento) {
-		this.dt_evento = dt_evento;
+	public void setDt_event(Date dt_event) {
+		this.dt_event = dt_event;
 	}
-	
-	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public double getValue() {
+		return value;
+	}
+	public void setValue(double value) {
+		this.value = value;
+	}
 
 }
