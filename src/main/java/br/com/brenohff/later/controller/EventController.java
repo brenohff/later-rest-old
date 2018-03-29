@@ -24,7 +24,7 @@ public class EventController {
 		service.saveEvent(event);
 	}
 	
-	@RequestMapping(value = "/getAllEvents")
+	@RequestMapping(value = "/getAll")
 	public List<LTEvent> getAllEvents() {
 		return service.getAllEvents();
 	}
