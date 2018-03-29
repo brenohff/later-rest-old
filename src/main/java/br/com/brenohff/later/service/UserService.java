@@ -19,13 +19,13 @@ public class UserService {
 	public List<LTUser> getAll() {
 		return repository.findAll();
 	}
-	
+
 	public LTUser getUserByFaceID(String face_id) {
 		LTUser user = repository.getUserByFaceID(face_id);
 		if (user != null) {
 			return user;
 		} else {
-			throw new UserNotFound("Usuário inexistente.");
+			throw new UserNotFound("Usuário não encontrado.");
 		}
 	}
 
@@ -33,7 +33,7 @@ public class UserService {
 		try {
 			repository.save(user);
 		} catch (Exception e) {
-			throw new UserAlreadyExistsException("Usuário já existe!");
+			throw new UserAlreadyExistsException("Este usuário já está cadastrado.");
 		}
 
 	}
