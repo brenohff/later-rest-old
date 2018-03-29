@@ -24,15 +24,9 @@ public class CommentController {
 		return service.getAllComments();
 	}
 
-	@RequestMapping(value = "/getCommentsByUser")
-	public List<LTComment> getCommentsByUser(@RequestParam(value = "user_id") Long user_id) {
-		return service.getCommentsByUser(user_id);
-	}
-
-	@RequestMapping(value = "/getCommentsByUserAndEvent")
-	public List<LTComment> getCommentsByUserAndEvent(@RequestParam(value = "user_id") Long user_id,
-			@RequestParam(value = "face_id") Long event_id) {
-		return service.getCommentsByUserAndEvent(user_id, event_id);
+	@RequestMapping(value = "/getCommentsByEvent")
+	public List<LTComment> getCommentsByEvent(@RequestParam(value = "event_id") Long event_id) {
+		return service.getCommentsByEvent(event_id);
 	}
 	
 	@RequestMapping(value = "saveComment", method = RequestMethod.POST)

@@ -18,12 +18,8 @@ public class CommentService {
 		return repository.findAll();
 	}
 
-	public List<LTComment> getCommentsByUser(Long user_id) {
-		return repository.getCommentsByUser(user_id);
-	}
-
-	public List<LTComment> getCommentsByUserAndEvent(Long user_id, Long event_id) {
-		return repository.getCommentsByUserAndEvent(user_id, event_id);
+	public List<LTComment> getCommentsByEvent(Long event_id) {
+		return repository.getCommentsByEvent(event_id);
 	}
 
 	public void saveComment(LTComment comment) {
