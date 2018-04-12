@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  * @author breno.franco
  *
  */
+
 @Entity
 @Table(name = "EVENT")
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -36,18 +37,25 @@ public class LTEvent implements Serializable {
 	@JoinColumn(name = "user_id", nullable = false)
 	private LTUser user;
 
-	@OneToMany(mappedBy = "event")
-	private Set<LTComment> comments;
+//	@OneToMany(mappedBy = "event")
+//	private Set<LTComment> comments;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
-	private Date dt_post = new Date();
+//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+//	private Date dt_post = new Date();
+//
+//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+//	private Date dt_event = new Date();
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
-	private Date dt_event = new Date();
+	private String status;
+    private String date;
+    private String hour;
+    private String locale;
 
-	private String title;
-	private String description;
-	private double value;
+    private Double price;
+    private Double lat;
+    private Double lon;
+
+    private boolean isPrivate;
 
 	public Long getId() {
 		return id;
@@ -65,53 +73,68 @@ public class LTEvent implements Serializable {
 		this.user = user;
 	}
 
-	public Date getDt_post() {
-		return dt_post;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setDt_post(Date dt_post) {
-		this.dt_post = dt_post;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
-	public Date getDt_event() {
-		return dt_event;
+	public String getDate() {
+		return date;
 	}
 
-	public void setDt_event(Date dt_event) {
-		this.dt_event = dt_event;
+	public void setDate(String date) {
+		this.date = date;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getHour() {
+		return hour;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setHour(String hour) {
+		this.hour = hour;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getLocale() {
+		return locale;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setLocale(String locale) {
+		this.locale = locale;
 	}
 
-	public double getValue() {
-		return value;
+	public Double getPrice() {
+		return price;
 	}
 
-	public void setValue(double value) {
-		this.value = value;
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 
-	@JsonIgnore
-	public Set<LTComment> getComments() {
-		return comments;
+	public Double getLat() {
+		return lat;
 	}
 
-	public void setComments(Set<LTComment> comments) {
-		this.comments = comments;
+	public void setLat(Double lat) {
+		this.lat = lat;
+	}
+
+	public Double getLon() {
+		return lon;
+	}
+
+	public void setLon(Double lon) {
+		this.lon = lon;
+	}
+
+	public boolean isPrivate() {
+		return isPrivate;
+	}
+
+	public void setPrivate(boolean isPrivate) {
+		this.isPrivate = isPrivate;
 	}
 
 }
