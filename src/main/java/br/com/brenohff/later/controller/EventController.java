@@ -30,7 +30,7 @@ public class EventController {
 	}
 	
 	@RequestMapping(value = "/getEventsByUser")
-	public List<LTEvent> getEventsByUser(@RequestParam(value="user_id") Long user_id) {
+	public List<LTEvent> getEventsByUser(@RequestParam(value="user_id") String user_id) {
 		return service.getEventsByUser(user_id);
 	}
 

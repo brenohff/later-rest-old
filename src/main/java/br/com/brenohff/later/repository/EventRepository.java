@@ -13,6 +13,6 @@ public interface EventRepository extends JpaRepository<LTEvent, Long> {
 	@Query("SELECT e "
 			+ "FROM LTEvent e "
 			+ "WHERE e.user.id = :user_id")
-	public List<LTEvent> getEventsByUser(@Param("user_id") Long user_id);
+	public List<LTEvent> getEventsByUser(@Param("user_id") String user_id);
 	
 }

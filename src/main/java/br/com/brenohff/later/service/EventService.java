@@ -27,7 +27,7 @@ public class EventService {
 		return eventRepository.findAll();
 	}
 
-	public List<LTEvent> getEventsByUser(Long user_id) {
+	public List<LTEvent> getEventsByUser(String user_id) {
 
 		List<LTEvent> lt_events = eventRepository.getEventsByUser(user_id);
 
