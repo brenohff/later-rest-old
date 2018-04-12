@@ -25,8 +25,8 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/getUser")
-	public LTUser getByFaceID(@RequestParam(value="face_id") String face_id) {
-		return service.getUserByFaceID(face_id);
+	public LTUser getByFaceID(@RequestParam(value="id") String id) {
+		return service.getUserByID(id);
 	}
 
 	@RequestMapping(value = "/saveUser", method = RequestMethod.POST)

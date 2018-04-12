@@ -10,7 +10,7 @@ public interface UserRepository extends JpaRepository<LTUser, Long> {
 	
 	@Query("SELECT a "
 			+ "FROM LTUser a "
-			+ "WHERE a.face_id = :face_id")
-	public LTUser getUserByFaceID(@Param("face_id") String face_id);
+			+ "WHERE a.id = :id")
+	public LTUser getUserByID(@Param("id") String id);
 
 }

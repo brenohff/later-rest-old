@@ -23,7 +23,7 @@ public class LTUser implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private String id;
 
 	@Column(unique = true)
 	private String email;
@@ -40,13 +40,12 @@ public class LTUser implements Serializable {
 	private String link;
 	private String image;
 	private String image_long;
-	private String face_id;
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -104,14 +103,6 @@ public class LTUser implements Serializable {
 
 	public void setImage_long(String image_long) {
 		this.image_long = image_long;
-	}
-
-	public String getFace_id() {
-		return face_id;
-	}
-
-	public void setFace_id(String face_id) {
-		this.face_id = face_id;
 	}
 
 	@JsonIgnore
