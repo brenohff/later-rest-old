@@ -6,7 +6,7 @@ import org.springframework.data.repository.query.Param;
 
 import br.com.brenohff.later.models.LTUser;
 
-public interface UserRepository extends JpaRepository<LTUser, Long> {
+public interface UserRepository extends JpaRepository<LTUser, String> {
 	
 	@Query("SELECT a "
 			+ "FROM LTUser a "
