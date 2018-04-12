@@ -22,7 +22,7 @@ public class LTUser implements Serializable {
 	private static final long serialVersionUID = 9077168091743018235L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String id;
 
 	@Column(unique = true)
