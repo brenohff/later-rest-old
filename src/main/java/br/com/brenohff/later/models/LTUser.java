@@ -5,8 +5,6 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -22,8 +20,7 @@ public class LTUser implements Serializable {
 	private static final long serialVersionUID = 9077168091743018235L;
 
 	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String id;
+	private String face_id;
 
 	@Column(unique = true)
 	private String email;
@@ -41,12 +38,13 @@ public class LTUser implements Serializable {
 	private String image;
 	private String image_long;
 
-	public String getId() {
-		return id;
+
+	public String getFace_id() {
+		return face_id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setFace_id(String face_id) {
+		this.face_id = face_id;
 	}
 
 	public String getName() {
