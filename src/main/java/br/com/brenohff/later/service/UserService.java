@@ -20,8 +20,8 @@ public class UserService {
 		return repository.findAll();
 	}
 
-	public LTUser getUserByID(String face_id) {
-		LTUser user = repository.getUserByID(face_id);
+	public LTUser getUserByID(String id) {
+		LTUser user = repository.getUserByID(id);
 		if (user != null) {
 			return user;
 		} else {

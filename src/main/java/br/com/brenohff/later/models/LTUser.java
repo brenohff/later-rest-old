@@ -20,7 +20,7 @@ public class LTUser implements Serializable {
 	private static final long serialVersionUID = 9077168091743018235L;
 
 	@Id
-	private String face_id;
+	private String id;
 
 	@Column(unique = true)
 	private String email;
@@ -38,13 +38,12 @@ public class LTUser implements Serializable {
 	private String image;
 	private String image_long;
 
-
-	public String getFace_id() {
-		return face_id;
+	public String getId() {
+		return id;
 	}
 
-	public void setFace_id(String face_id) {
-		this.face_id = face_id;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getName() {
