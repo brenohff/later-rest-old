@@ -50,6 +50,7 @@ public class LTEvent implements Serializable {
     private String date;
     private String hour;
     private String locale;
+    private String image;
 
     private Double price;
     private Double lat;
@@ -135,6 +136,14 @@ public class LTEvent implements Serializable {
 
 	public void setPrivate(boolean isPrivate) {
 		this.isPrivate = isPrivate;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 }
