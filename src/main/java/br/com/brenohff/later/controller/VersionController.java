@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class VersionController {
 
-	@RequestMapping(value = "/version", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = {"/", "/version"}, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, String> sayHello() {
 	    HashMap<String, String> map = new HashMap<>();
 	    map.put("version", "v1");
