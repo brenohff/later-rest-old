@@ -24,6 +24,14 @@ public class LTCategory implements Serializable{
 	private String url;
 	private String name;
 	private String baseColor;
+	
+	public LTCategory(String url, String name, String baseColor) {
+		super();
+		this.url = url;
+		this.name = name;
+		this.baseColor = baseColor;
+	}
+	
 	public Long getId() {
 		return id;
 	}

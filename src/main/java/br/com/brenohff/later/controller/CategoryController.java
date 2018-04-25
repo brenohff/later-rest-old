@@ -29,7 +29,10 @@ public class CategoryController {
 
 	@RequestMapping(value = "/initiate")
 	private void initiateCategories() {
+		
 		List<LTCategory> ltCategory = new ArrayList<>();
+		ltCategory.add(new LTCategory("https://firebasestorage.googleapis.com/v0/b/later-6c492.appspot.com/o/categories_images%2Faxe_category.jpg?alt=media&token=190ce909-6886-4610-aa8e-43b5526b5ad1", "Axé", ""));
+		ltCategory.add(new LTCategory("https://firebasestorage.googleapis.com/v0/b/later-6c492.appspot.com/o/categories_images%2Feletronico_category.jpg?alt=media&token=b2e53f31-9e88-4d11-b289-9cd473f11923", "Eletrônico", ""));
 
 		for (LTCategory category : ltCategory) {
 			service.saveCategories(category);
@@ -43,6 +46,10 @@ public class CategoryController {
 	}
 
 	/**
+	  
+	  	private String url;
+		private String name;
+		private String baseColor;
 		<!-- CORES CATEGORIAS -->
 	    <color name="pop">#2196F3</color>
 	    <color name="pop_700">#1976D2</color>
