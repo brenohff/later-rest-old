@@ -24,15 +24,17 @@ public class LTCategory implements Serializable{
 	private String url;
 	private String name;
 	private String baseColor;
+	private String baseColor700;
 	
 	public LTCategory() {
 	}
 
-	public LTCategory(String url, String name, String baseColor) {
+	public LTCategory(String url, String name, String baseColor, String baseColor700) {
 		super();
 		this.url = url;
 		this.name = name;
 		this.baseColor = baseColor;
+		this.baseColor700 = baseColor700;
 	}
 	
 	public Long getId() {
@@ -59,6 +61,14 @@ public class LTCategory implements Serializable{
 	public void setBaseColor(String baseColor) {
 		this.baseColor = baseColor;
 	}
+	public String getBaseColor700() {
+		return baseColor700;
+	}
+	public void setBaseColor700(String baseColor700) {
+		this.baseColor700 = baseColor700;
+	}
+	
+	
 	
 	
 
