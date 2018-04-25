@@ -63,8 +63,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-
-	<packaging>war</packaging>
-	<url>www.later.bsb.br</url>
 </project>
