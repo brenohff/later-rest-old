@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.brenohff.later.models.LTCategory;
-import br.com.brenohff.later.models.LTEvent;
 import br.com.brenohff.later.service.CategoryService;
 
 @RestController

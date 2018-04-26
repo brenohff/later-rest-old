@@ -40,6 +40,7 @@ public class WebSocketEventListener {
             LTChat ltChat = new LTChat();
             ltChat.setType(LTChat.MessageType.SAIU);
             ltChat.setSender(username);
+            chatService.salvarMensagem(ltChat);
 
             messagingTemplate.convertAndSend("/topic/public", ltChat);
         }
