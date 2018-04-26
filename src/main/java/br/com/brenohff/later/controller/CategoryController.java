@@ -25,7 +25,15 @@ public class CategoryController {
 		service.saveCategories(category);
 		return ResponseEntity.ok().build();
 	}
-
+	
+	@RequestMapping(value = "/getAll")
+	private ResponseEntity<List<LTCategory>> getAll(){
+		List<LTCategory> ltCategory = service.getCategories();
+		return ResponseEntity.status(HttpStatus.OK).body(ltCategory);
+	}
+	
+	
+	// TODO APAGAR ESTE MÉTODO
 	@RequestMapping(value = "/initiate")
 	private void initiateCategories() {
 		
@@ -43,12 +51,6 @@ public class CategoryController {
 		for (LTCategory category : ltCategory) {
 			service.saveCategories(category);
 		}
-	}
-	
-	@RequestMapping(value = "/getAll")
-	private ResponseEntity<List<LTCategory>> getAll(){
-		List<LTCategory> ltCategory = service.getCategories();
-		return ResponseEntity.status(HttpStatus.OK).body(ltCategory);
 	}
 	
 }

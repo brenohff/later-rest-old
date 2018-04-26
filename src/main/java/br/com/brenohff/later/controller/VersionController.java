@@ -1,67 +1,33 @@
 package br.com.brenohff.later.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.brenohff.later.models.LTVersion;
+import br.com.brenohff.later.repository.VersionRepository;
+
 @RestController
 public class VersionController {
 
+	@Autowired
+	VersionRepository repository;
+
 	@RequestMapping(value = { "/", "/version" }, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Data> sayHello() {
-		Data data = new Data("0.0.2-SNAPSHOT", "Breno Henrique", "brenohff@gmail.com", true);
-		return ResponseEntity.status(HttpStatus.OK).body(data);
+	public ResponseEntity<LTVersion> getVersion() {
+		LTVersion version = repository.findAll().get(0);
+		return ResponseEntity.status(HttpStatus.OK).body(version);
 	}
 
-}
-
-class Data {
-
-	private String version;
-	private String author;
-	private String contact;
-	private boolean working;
-
-	public Data(String version, String author, String contact, boolean working) {
-		super();
-		this.version = version;
-		this.author = author;
-		this.contact = contact;
-		this.working = working;
-	}
-
-	public String getVersion() {
-		return version;
-	}
-
-	public void setVersion(String version) {
-		this.version = version;
-	}
-
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
-	public String getContact() {
-		return contact;
-	}
-
-	public void setContact(String contact) {
-		this.contact = contact;
-	}
-
-	public boolean isWorking() {
-		return working;
-	}
-
-	public void setWorking(boolean working) {
-		this.working = working;
+	// TODO APAGAR ESTE MÉTODO
+	@RequestMapping(value = "/initiate", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<LTVersion> initiate() {
+		LTVersion version = new LTVersion("0.0.3-SNAPSHOT", "Breno Henrique", "brenohff@gmail.com", true);
+		repository.save(version);
+		return ResponseEntity.status(HttpStatus.OK).body(version);
 	}
 
 }
