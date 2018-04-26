@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.brenohff.later.models.LTEvent;
+import br.com.brenohff.later.repository.CategoryEventRepository;
 import br.com.brenohff.later.repository.EventRepository;
 import br.com.brenohff.later.repository.UserRepository;
 import br.com.brenohff.later.service.exceptions.EventNotFound;
@@ -18,6 +19,9 @@ public class EventService {
 
 	@Autowired
 	UserRepository userRepository;
+
+	@Autowired
+	CategoryEventRepository categoryEventRepository;
 
 	public void saveEvent(LTEvent event) {
 		eventRepository.save(event);
