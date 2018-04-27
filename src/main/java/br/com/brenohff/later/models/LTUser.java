@@ -1,6 +1,7 @@
 package br.com.brenohff.later.models;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -30,6 +32,9 @@ public class LTUser implements Serializable {
 
 	@OneToMany(mappedBy = "user")
 	private Set<LTComment> comments;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+	private Date member_since = new Date();
 
 	private String name;
 	private String birthday;
@@ -37,6 +42,7 @@ public class LTUser implements Serializable {
 	private String link;
 	private String image;
 	private String image_long;
+	
 
 	public String getId() {
 		return id;
