@@ -14,6 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
@@ -89,6 +90,7 @@ public class LTCategory implements Serializable {
 		this.baseColor700 = baseColor700;
 	}
 
+	@JsonIgnore
 	public Set<LTEvent> getEvents() {
 		return events;
 	}

@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.brenohff.later.models.LTCategory;
+import br.com.brenohff.later.models.LTCategoryEvent;
 import br.com.brenohff.later.models.LTEvent;
 import br.com.brenohff.later.repository.CategoryEventRepository;
 import br.com.brenohff.later.repository.EventRepository;
@@ -25,6 +27,9 @@ public class EventService {
 
 	public void saveEvent(LTEvent event) {
 		eventRepository.save(event);
+		for(LTCategory category : event.getCategories()) {
+			categoryEventRepository.save(new LTCategoryEvent(category.getId(), event.getId()));
+		}
 	}
 
 	public List<LTEvent> getAllEvents() {
