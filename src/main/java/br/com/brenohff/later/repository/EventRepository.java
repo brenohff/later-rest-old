@@ -15,4 +15,7 @@ public interface EventRepository extends JpaRepository<LTEvent, Long> {
 			+ "WHERE e.user.id = :user_id")
 	public List<LTEvent> getEventsByUser(@Param("user_id") String user_id);
 	
+	@Query("SELECT e FROM LTEvent e WHERE e.isPrivate = false")
+	public List<LTEvent> getPublic();
+	
 }

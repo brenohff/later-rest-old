@@ -3,6 +3,8 @@ package br.com.brenohff.later.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +29,11 @@ public class EventController {
 	@RequestMapping(value = "/getAll")
 	public List<LTEvent> getAllEvents() {
 		return service.getAllEvents();
+	}
+	
+	@RequestMapping(value = "/getPublic")
+	public ResponseEntity<List<LTEvent>> getPublic() {
+		return ResponseEntity.status(HttpStatus.OK).body(service.getPublic());
 	}
 	
 	@RequestMapping(value = "/getEventsByUser")

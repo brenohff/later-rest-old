@@ -31,6 +31,10 @@ public class EventService {
 			categoryEventRepository.save(new LTCategoryEvent(category.getId(), event.getId()));
 		}
 	}
+	
+	public List<LTEvent> getPublic() {
+		return eventRepository.getPublic();
+	}
 
 	public List<LTEvent> getAllEvents() {
 		return eventRepository.findAll();
