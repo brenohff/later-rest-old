@@ -18,8 +18,8 @@ public class LTChat {
 
     public enum MessageType {
         CHAT,
-        ENTROU,
-        SAIU
+        JOIN,
+        LEAVE
     }
 
 	public Long getId() {

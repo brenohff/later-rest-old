@@ -38,7 +38,7 @@ public class WebSocketEventListener {
             logger.info("User Disconnected : " + username);
 
             LTChat ltChat = new LTChat();
-            ltChat.setType(LTChat.MessageType.SAIU);
+            ltChat.setType(LTChat.MessageType.LEAVE);
             ltChat.setSender(username);
             chatService.salvarMensagem(ltChat);
 

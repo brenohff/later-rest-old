@@ -16,7 +16,7 @@ public class VersionController {
 	@Autowired
 	VersionRepository repository;
 
-	@RequestMapping(value = { "/", "/version" }, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/version", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<LTVersion> getVersion() {
 		LTVersion version = repository.findAll().get(0);
 		return ResponseEntity.status(HttpStatus.OK).body(version);
