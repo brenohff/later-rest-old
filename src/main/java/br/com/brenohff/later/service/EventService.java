@@ -52,7 +52,7 @@ public class EventService {
 	}
 	
 	public void delete(LTEvent event) {
-		eventRepository.delete(event);
+		eventRepository.delete(event.getId());
 	}
 
 }
