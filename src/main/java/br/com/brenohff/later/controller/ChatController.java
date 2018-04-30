@@ -22,19 +22,20 @@ public class ChatController {
 
 	@Autowired
 	ChatService service;
-	
-	@MessageMapping("/fleet/{fleetId}/chat.addUser")
-	@SendTo("/topic/fleet/{fleetId}")
-	public LTChat addUser(@DestinationVariable String fleetId, @Payload LTChat chatMessage,
+
+	@MessageMapping("/event/{eventId}/addUser")
+	@SendTo("/topic/event/{eventId}")
+	public LTChat addUser(@DestinationVariable String eventId, @Payload LTChat chatMessage,
 			SimpMessageHeaderAccessor headerAccessor) {
-		headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+		chatMessage.setEventId(eventId);
+		headerAccessor.getSessionAttributes().put("chatMessage", chatMessage);
 		return chatMessage;
 	}
 
-	@MessageMapping("/fleet/{fleetId}/chat.sendMessage")
-	@SendTo("/topic/fleet/{fleetId}")
-	public LTChat sendMessage(@DestinationVariable String fleetId, @Payload LTChat chatMessage) {
-		chatMessage.setEventId(fleetId);
+	@MessageMapping("/event/{eventId}/sendMessage")
+	@SendTo("/topic/event/{eventId}")
+	public LTChat sendMessage(@DestinationVariable String eventId, @Payload LTChat chatMessage) {
+		chatMessage.setEventId(eventId);
 		service.salvarMensagem(chatMessage);
 		return chatMessage;
 	}
@@ -48,19 +49,3 @@ public class ChatController {
 	}
 
 }
-
-// @MessageMapping("/chat.sendMessage")
-// @SendTo("/topic/public")
-// public LTChat sendMessage(@Payload LTChat chatMessage) {
-// service.salvarMensagem(chatMessage);
-// return chatMessage;
-// }
-//
-// @MessageMapping("/chat.addUser")
-// @SendTo("/topic/public")
-// public LTChat addUser(@Payload LTChat chatMessage, SimpMessageHeaderAccessor
-// headerAccessor) {
-// headerAccessor.getSessionAttributes().put("username",
-// chatMessage.getSender());
-// return chatMessage;
-// }

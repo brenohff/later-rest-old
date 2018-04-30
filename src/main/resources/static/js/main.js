@@ -24,7 +24,7 @@ function connect(event) {
         usernamePage.classList.add('hidden');
         chatPage.classList.remove('hidden');
 
-        var socket = new SockJS('/fleet');
+        var socket = new SockJS('/event');
         stompClient = Stomp.over(socket);
 
         stompClient.connect({}, onConnected, onError);
@@ -35,10 +35,10 @@ function connect(event) {
 
 function onConnected() {
     // Subscribe to the Public Topic
-    stompClient.subscribe('/topic/fleet/' + r, onMessageReceived);
+    stompClient.subscribe('/topic/event/' + r, onMessageReceived);
     
     // Tell your username to the server
-    stompClient.send("/live/fleet/" + r + "/chat.addUser",
+    stompClient.send("/live/event/" + r + "/addUser",
         {},
         JSON.stringify({sender: username, type: 'JOIN'})
     )
@@ -63,7 +63,7 @@ function sendMessage(event) {
             type: 'CHAT'
         };
 
-        stompClient.send("/live/fleet/"+ r +"/chat.sendMessage", {}, JSON.stringify(chatMessage));
+        stompClient.send("/live/event/"+ r +"/sendMessage", {}, JSON.stringify(chatMessage));
         messageInput.value = '';
     }
     event.preventDefault();
