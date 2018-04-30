@@ -1,4 +1,4 @@
-* {
+{
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -17,11 +17,11 @@ body {
     font-size: 1rem;
     line-height: 1.58;
     color: #333;
-    background-color: #f4f4f4;
+    background-color: #9E7FC1;
     height: 100%;
 }
 
-body:before {
+/* body:before {
     height: 50%;
     width: 100%;
     position: absolute;
@@ -30,7 +30,7 @@ body:before {
     background: #128ff2;
     content: "";
     z-index: 0;
-}
+} */
 
 .clearfix:after {
     display: block;
