@@ -50,5 +50,9 @@ public class EventService {
 			throw new EventNotFound("Nenhum evento encontrado.");
 		}
 	}
+	
+	public void delete(LTEvent event) {
+		eventRepository.delete(event.getId());
+	}
 
 }

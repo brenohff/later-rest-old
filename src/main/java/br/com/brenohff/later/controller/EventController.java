@@ -40,5 +40,13 @@ public class EventController {
 	public List<LTEvent> getEventsByUser(@RequestParam(value="user_id") String user_id) {
 		return service.getEventsByUser(user_id);
 	}
+	
+	@RequestMapping(value = "/delete")
+	public void delete() {
+		List<LTEvent> events = service.getPublic();
+		for(LTEvent event : events) {
+			service.delete(event);
+		}
+	}
 
 }

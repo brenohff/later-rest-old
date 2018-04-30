@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -41,8 +40,8 @@ public class LTEvent implements Serializable {
 	@JoinColumn(name = "user_id", nullable = false)
 	private LTUser user;
 
-	@OneToMany(mappedBy = "event")
-	private Set<LTComment> comments;
+//	@OneToMany(mappedBy = "event")
+//	private Set<LTComment> comments;
 
 	 @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
 	 private Date dt_post = new Date();
@@ -50,6 +49,8 @@ public class LTEvent implements Serializable {
 	// @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
 	// private Date dt_event = new Date();
 
+	private String title;
+	private String description;
 	private String status;
 	private String date;
 	private String hour;
@@ -62,14 +63,15 @@ public class LTEvent implements Serializable {
 
 	private boolean isPrivate;
 
-	public Set<LTComment> getComments() {
-		return comments;
-	}
+//	public Set<LTComment> getComments() {
+//		return comments;
+//	}
+//
+//	public void setComments(Set<LTComment> comments) {
+//		this.comments = comments;
 
-	public void setComments(Set<LTComment> comments) {
-		this.comments = comments;
-	}
 
+	
 	public Long getId() {
 		return id;
 	}
@@ -165,7 +167,21 @@ public class LTEvent implements Serializable {
 	public void setCategories(Set<LTCategory> categories) {
 		this.categories = categories;
 	}
-	
-	
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 }
