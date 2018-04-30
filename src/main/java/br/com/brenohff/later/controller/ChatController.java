@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -21,18 +22,20 @@ public class ChatController {
 
 	@Autowired
 	ChatService service;
-
-	@MessageMapping("/chat.sendMessage")
-	@SendTo("/topic/public")
-	public LTChat sendMessage(@Payload LTChat chatMessage) {
-		service.salvarMensagem(chatMessage);
+	
+	@MessageMapping("/fleet/{fleetId}/chat.addUser")
+	@SendTo("/topic/fleet/{fleetId}")
+	public LTChat addUser(@DestinationVariable String fleetId, @Payload LTChat chatMessage,
+			SimpMessageHeaderAccessor headerAccessor) {
+		headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
 		return chatMessage;
 	}
 
-	@MessageMapping("/chat.addUser")
-	@SendTo("/topic/public")
-	public LTChat addUser(@Payload LTChat chatMessage, SimpMessageHeaderAccessor headerAccessor) {
-		headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+	@MessageMapping("/fleet/{fleetId}/chat.sendMessage")
+	@SendTo("/topic/fleet/{fleetId}")
+	public LTChat sendMessage(@DestinationVariable String fleetId, @Payload LTChat chatMessage) {
+		chatMessage.setEventId(fleetId);
+		service.salvarMensagem(chatMessage);
 		return chatMessage;
 	}
 
@@ -45,3 +48,19 @@ public class ChatController {
 	}
 
 }
+
+// @MessageMapping("/chat.sendMessage")
+// @SendTo("/topic/public")
+// public LTChat sendMessage(@Payload LTChat chatMessage) {
+// service.salvarMensagem(chatMessage);
+// return chatMessage;
+// }
+//
+// @MessageMapping("/chat.addUser")
+// @SendTo("/topic/public")
+// public LTChat addUser(@Payload LTChat chatMessage, SimpMessageHeaderAccessor
+// headerAccessor) {
+// headerAccessor.getSessionAttributes().put("username",
+// chatMessage.getSender());
+// return chatMessage;
+// }

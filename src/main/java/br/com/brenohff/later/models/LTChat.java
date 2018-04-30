@@ -15,12 +15,21 @@ public class LTChat {
     private MessageType type;
     private String content;
     private String sender;
+    private String eventId;
 
     public enum MessageType {
         CHAT,
         JOIN,
         LEAVE
     }
+
+	public String getEventId() {
+		return eventId;
+	}
+
+	public void setEventId(String eventId) {
+		this.eventId = eventId;
+	}
 
 	public Long getId() {
 		return id;
