@@ -13,6 +13,7 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.brenohff.later.models.LTChat;
 import br.com.brenohff.later.service.ChatService;
@@ -21,7 +22,7 @@ import br.com.brenohff.later.service.ChatService;
 public class ChatController {
 
 	@Autowired
-	ChatService service;
+	ChatService chatService;
 
 	@MessageMapping("/event/{eventId}/addUser")
 	@SendTo("/topic/event/{eventId}")
@@ -36,16 +37,17 @@ public class ChatController {
 	@SendTo("/topic/event/{eventId}")
 	public LTChat sendMessage(@DestinationVariable String eventId, @Payload LTChat chatMessage) {
 		chatMessage.setEventId(eventId);
-		service.salvarMensagem(chatMessage);
+		chatService.saveChat(chatMessage);
 		return chatMessage;
 	}
 
-	@Autowired
-	private ChatService chatService;
-
-	@RequestMapping(value = "/chat", method = RequestMethod.GET)
+	@RequestMapping(value = "/chat/getAll", method = RequestMethod.GET)
 	public ResponseEntity<List<LTChat>> buscaChat() {
-		return ResponseEntity.status(HttpStatus.OK).body(chatService.listarMensagens());
+		return ResponseEntity.status(HttpStatus.OK).body(chatService.getAll());
 	}
-
+	
+	@RequestMapping(value = "/chat/getChatByEventId")
+	public ResponseEntity<List<LTChat>> getChatByEventId(@RequestParam("eventId") String eventId){
+		return ResponseEntity.status(HttpStatus.OK).body(chatService.getChatByEventId(eventId));
+	}
 }
