@@ -34,10 +34,10 @@ function connect(event) {
 
 function onConnected() {
     // Subscribe to the Public Topic
-    stompClient.subscribe('/topic/event/event1', onMessageReceived);
+    stompClient.subscribe('/topic/event/1', onMessageReceived);
     
     // Tell your username to the server
-    stompClient.send("/live/event/event1/addUser",
+    stompClient.send("/live/event/1/addUser",
         {},
         JSON.stringify({sender: username, type: 'JOIN'})
     )
@@ -62,7 +62,7 @@ function sendMessage(event) {
             type: 'CHAT'
         };
 
-        stompClient.send("/live/event/event1/sendMessage", {}, JSON.stringify(chatMessage));
+        stompClient.send("/live/event/1/sendMessage", {}, JSON.stringify(chatMessage));
         messageInput.value = '';
     }
     event.preventDefault();
