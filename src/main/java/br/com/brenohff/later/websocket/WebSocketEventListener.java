@@ -30,14 +30,14 @@ public class WebSocketEventListener {
 		StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
 
 		LTChat chatMessage = (LTChat) headerAccessor.getSessionAttributes().get("chatMessage");
-		String username = chatMessage.getSender();
+		String username = chatMessage.getSender().getName();
 
 		if (username != null) {
 			logger.info("User Disconnected : " + username);
 
 			LTChat ltChat = new LTChat();
 			ltChat.setType(LTChat.MessageType.LEAVE);
-			ltChat.setSender(username);
+			ltChat.setSender(chatMessage.getSender());
 
 			messagingTemplate.convertAndSend("/topic/event/" + chatMessage.getEventId(), ltChat);
 		}

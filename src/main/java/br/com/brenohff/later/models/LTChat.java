@@ -14,7 +14,7 @@ public class LTChat {
 	
     private MessageType type;
     private String content;
-    private String sender;
+    private LTUser sender;
     private String eventId;
 
     public enum MessageType {
@@ -55,11 +55,11 @@ public class LTChat {
 		this.content = content;
 	}
 
-	public String getSender() {
+	public LTUser getSender() {
 		return sender;
 	}
 
-	public void setSender(String sender) {
+	public void setSender(LTUser sender) {
 		this.sender = sender;
 	}
     
