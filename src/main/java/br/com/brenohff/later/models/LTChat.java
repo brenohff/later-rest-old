@@ -1,6 +1,7 @@
 package br.com.brenohff.later.models;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
@@ -26,6 +28,9 @@ public class LTChat implements Serializable{
 	@ManyToOne()
 	@JoinColumn(name = "user_id", nullable = false)
 	private LTUser user;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+	private Date dtPost = new Date();
 	
     private MessageType type;
     private String content;
@@ -76,5 +81,15 @@ public class LTChat implements Serializable{
 	public void setUser(LTUser user) {
 		this.user = user;
 	}
+
+	public Date getDtPost() {
+		return dtPost;
+	}
+
+	public void setDtPost(Date dtPost) {
+		this.dtPost = dtPost;
+	}
+	
+	
 
 }
