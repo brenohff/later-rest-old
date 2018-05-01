@@ -1,14 +1,23 @@
 package br.com.brenohff.later.models;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
-public class LTChat {
+@Table(name = "CHAT")
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class LTChat implements Serializable{
+
+	private static final long serialVersionUID = 3625234538742558082L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +25,7 @@ public class LTChat {
 	
 	@ManyToOne()
 	@JoinColumn(name = "user_id", nullable = false)
-    private LTUser sender;
+	private LTUser user;
 	
     private MessageType type;
     private String content;
@@ -60,14 +69,12 @@ public class LTChat {
 		this.content = content;
 	}
 
-	public LTUser getSender() {
-		return sender;
+	public LTUser getUser() {
+		return user;
 	}
 
-	public void setSender(LTUser sender) {
-		this.sender = sender;
+	public void setUser(LTUser user) {
+		this.user = user;
 	}
-    
-    
 
 }
