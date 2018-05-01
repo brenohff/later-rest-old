@@ -31,7 +31,7 @@ public class LTUser implements Serializable {
 	private Set<LTEvent> events;
 
 	@OneToMany(mappedBy = "user")
-	private Set<LTComment> comments;
+	private Set<LTChat> chat;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
 	private Date member_since = new Date();
@@ -118,12 +118,20 @@ public class LTUser implements Serializable {
 	}
 
 	@JsonIgnore
-	public Set<LTComment> getComments() {
-		return comments;
+	public Set<LTChat> getChat() {
+		return chat;
 	}
 
-	public void setComments(Set<LTComment> comments) {
-		this.comments = comments;
+	public void setChat(Set<LTChat> chat) {
+		this.chat = chat;
+	}
+
+	public Date getMember_since() {
+		return member_since;
+	}
+
+	public void setMember_since(Date member_since) {
+		this.member_since = member_since;
 	}
 
 }
