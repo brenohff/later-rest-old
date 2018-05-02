@@ -16,6 +16,17 @@ var colors = [
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
 
+var user = {
+		id: 1369288233173370,
+		email: 'breno15555@gmail.com',
+		name: 'Breno Henrique',
+		birthday: '05/22/1996',
+		gender: 'male',
+		link: 'https://www.facebook.com/app_scoped_user_id/1369288233173370/',
+		image: 'https://graph.facebook.com/1369288233173370/picture',
+		image_long: 'https://graph.facebook.com/1369288233173370/picture?type=large'
+}
+
 function connect(event) {
     username = document.querySelector('#name').value.trim();
 
@@ -39,7 +50,7 @@ function onConnected() {
     // Tell your username to the server
     stompClient.send("/live/event/1/addUser",
         {},
-        JSON.stringify({sender: username, type: 'JOIN'})
+        JSON.stringify({user: user, type: 'JOIN'})
     )
 
     connectingElement.classList.add('hidden');
@@ -57,7 +68,7 @@ function sendMessage(event) {
 
     if(messageContent && stompClient) {
         var chatMessage = {
-            sender: username,
+            user: user,
             content: messageInput.value,
             type: 'CHAT'
         };
@@ -76,22 +87,22 @@ function onMessageReceived(payload) {
 
     if(message.type === 'JOIN') {
         messageElement.classList.add('event-message');
-        message.content = message.sender + ' entrou!';
+        message.content = message.user.name + ' entrou!';
     } else if (message.type === 'LEAVE') {
         messageElement.classList.add('event-message');
-        message.content = message.sender + ' saiu!';
+        message.content = message.user.name + ' saiu!';
     } else {
         messageElement.classList.add('chat-message');
 
         var avatarElement = document.createElement('i');
-        var avatarText = document.createTextNode(message.sender[0]);
+        var avatarText = document.createTextNode(message.user.name[0]);
         avatarElement.appendChild(avatarText);
-        avatarElement.style['background-color'] = getAvatarColor(message.sender);
+        avatarElement.style['background-color'] = getAvatarColor(message.user.name);
 
         messageElement.appendChild(avatarElement);
 
         var usernameElement = document.createElement('span');
-        var usernameText = document.createTextNode(message.sender);
+        var usernameText = document.createTextNode(message.user.name);
         usernameElement.appendChild(usernameText);
         messageElement.appendChild(usernameElement);
     }
