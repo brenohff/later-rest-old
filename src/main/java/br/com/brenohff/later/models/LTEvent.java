@@ -32,22 +32,16 @@ public class LTEvent implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@ManyToMany(mappedBy = "events")
-    private Set<LTCategory> categories = new HashSet<>();
+	private Set<LTCategory> categories = new HashSet<>();
 
 	@ManyToOne()
 	@JoinColumn(name = "user_id", nullable = false)
 	private LTUser user;
 
-//	@OneToMany(mappedBy = "event")
-//	private Set<LTComment> comments;
-
-	 @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
-	 private Date dt_post = new Date();
-	//
-	// @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
-	// private Date dt_event = new Date();
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+	private Date dt_post = new Date();
 
 	private String title;
 	private String description;
@@ -63,15 +57,13 @@ public class LTEvent implements Serializable {
 
 	private boolean isPrivate;
 
-//	public Set<LTComment> getComments() {
-//		return comments;
-//	}
-//
-//	public void setComments(Set<LTComment> comments) {
-//		this.comments = comments;
+	// public Set<LTComment> getComments() {
+	// return comments;
+	// }
+	//
+	// public void setComments(Set<LTComment> comments) {
+	// this.comments = comments;
 
-
-	
 	public Long getId() {
 		return id;
 	}
