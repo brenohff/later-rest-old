@@ -20,8 +20,6 @@ public class LaterBackendApplication implements CommandLineRunner{
 	private UserService userService;
 	@Autowired
 	private CategoryService categoryService;
-	
-	
 
 	public static void main(String[] args) {
 		SpringApplication.run(LaterBackendApplication.class, args);
