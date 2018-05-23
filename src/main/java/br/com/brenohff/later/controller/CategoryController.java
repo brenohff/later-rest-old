@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.brenohff.later.models.LTCategory;
+import br.com.brenohff.later.models.LTUser;
 import br.com.brenohff.later.service.CategoryService;
+import br.com.brenohff.later.service.UserService;
 
 @RestController
 @RequestMapping(value = "/categories")
@@ -19,6 +21,9 @@ public class CategoryController {
 
 	@Autowired
 	CategoryService service;
+	
+	@Autowired
+	UserService userService;
 
 	@RequestMapping(value = "/saveCategory")
 	private ResponseEntity<Void> saveCategory(@RequestBody LTCategory category) {
@@ -36,6 +41,19 @@ public class CategoryController {
 	// TODO APAGAR ESTE MÉTODO
 	@RequestMapping(value = "/initiate")
 	private void initiateCategories() {
+		
+		LTUser user = new LTUser();
+		user.setId("1369288233173370");
+		user.setEmail("breno15555@gmail.com");
+		user.setName("Breno Henrique");
+		user.setBirthday("05/22/1996");
+		user.setGender("male");
+		user.setLink("https://www.facebook.com/app_scoped_user_id/YXNpZADpBWEd5azRYdHpjWThNSFB0di1nN1NlX2NVRWlqcUh4Snd1TGxFZA2hZATFFIMFBJbkZAkRkpETFVuaFFDTGZAqZAjFnSnlqS0cwVnY2THlLN0JERkllUlhfZAFlZAaU5zcU04UVdoUnNvY0UyT3BVRjhpNFpa/");
+		user.setImage("https://graph.facebook.com/1369288233173370/picture");
+		user.setImage_long("https://graph.facebook.com/1369288233173370/picture?type=large");
+		
+		userService.saveUser(user);
+		
 		
 		List<LTCategory> ltCategory = new ArrayList<>();
 		ltCategory.add(new LTCategory("https://firebasestorage.googleapis.com/v0/b/later-6c492.appspot.com/o/categories_images%2Faxe_category.jpg?alt=media&token=190ce909-6886-4610-aa8e-43b5526b5ad1", "Axé", "#FFC107", "#FFA000"));
