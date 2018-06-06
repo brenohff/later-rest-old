@@ -11,7 +11,7 @@ import br.com.brenohff.later.models.LTEvent;
 import br.com.brenohff.later.repository.CategoryEventRepository;
 import br.com.brenohff.later.repository.EventRepository;
 import br.com.brenohff.later.repository.UserRepository;
-import br.com.brenohff.later.service.exceptions.EventNotFound;
+import br.com.brenohff.later.service.exceptions.ObjectNotFound;
 
 @Service
 public class EventService {
@@ -27,11 +27,11 @@ public class EventService {
 
 	public void saveEvent(LTEvent event) {
 		eventRepository.save(event);
-		for(LTCategory category : event.getCategories()) {
+		for (LTCategory category : event.getCategories()) {
 			categoryEventRepository.save(new LTCategoryEvent(category.getId(), event.getId()));
 		}
 	}
-	
+
 	public List<LTEvent> getPublic() {
 		return eventRepository.getPublic();
 	}
@@ -47,10 +47,10 @@ public class EventService {
 		if (!lt_events.isEmpty()) {
 			return lt_events;
 		} else {
-			throw new EventNotFound("Nenhum evento encontrado.");
+			throw new ObjectNotFound("Nenhum evento encontrado.");
 		}
 	}
-	
+
 	public void delete(LTEvent event) {
 		eventRepository.delete(event.getId());
 	}

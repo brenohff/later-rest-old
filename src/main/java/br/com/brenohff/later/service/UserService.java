@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import br.com.brenohff.later.models.LTUser;
 import br.com.brenohff.later.repository.UserRepository;
-import br.com.brenohff.later.service.exceptions.UserAlreadyExistsException;
-import br.com.brenohff.later.service.exceptions.UserNotFound;
+import br.com.brenohff.later.service.exceptions.ObjectAlreadyExists;
+import br.com.brenohff.later.service.exceptions.ObjectNotFound;
 
 @Service
 public class UserService {
@@ -25,7 +25,7 @@ public class UserService {
 		if (user != null) {
 			return user;
 		} else {
-			throw new UserNotFound("Usuário não encontrado.");
+			throw new ObjectNotFound("Usuário não encontrado.");
 		}
 	}
 
@@ -33,7 +33,7 @@ public class UserService {
 		try {
 			repository.save(user);
 		} catch (Exception e) {
-			throw new UserAlreadyExistsException("Este usuário já está cadastrado.");
+			throw new ObjectAlreadyExists("Este usuário já está cadastrado.");
 		}
 
 	}
