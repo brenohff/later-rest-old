@@ -1,6 +1,7 @@
 package br.com.brenohff.later.models;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,35 +11,34 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
 @Table(name = "CHAT")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class LTChat implements Serializable{
+public class LTChat implements Serializable {
 
 	private static final long serialVersionUID = 3625234538742558082L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@ManyToOne()
 	@JoinColumn(name = "user_id", nullable = false)
 	private LTUser user;
-	
-//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
-//	private Date dtPost = new Date();
-	
-    private MessageType type;
-    private String content;
-    private String eventId;
 
-    public enum MessageType {
-        CHAT,
-        JOIN,
-        LEAVE
-    }
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+	private Date dtPost;
+
+	private MessageType type;
+	private String content;
+	private String eventId;
+
+	public enum MessageType {
+		CHAT, JOIN, LEAVE
+	}
 
 	public String getEventId() {
 		return eventId;
@@ -80,12 +80,12 @@ public class LTChat implements Serializable{
 		this.user = user;
 	}
 
-//	public Date getDtPost() {
-//		return dtPost;
-//	}
-//
-//	public void setDtPost(Date dtPost) {
-//		this.dtPost = dtPost;
-//	}
+	public Date getDtPost() {
+		return dtPost;
+	}
+
+	public void setDtPost(Date dtPost) {
+		this.dtPost = dtPost;
+	}
 	
 }

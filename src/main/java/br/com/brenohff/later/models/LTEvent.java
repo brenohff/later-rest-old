@@ -41,7 +41,7 @@ public class LTEvent implements Serializable {
 	private LTUser user;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
-	private Date dt_post = new Date();
+	private Date dt_post;
 
 	private String title;
 	private String description;
@@ -56,13 +56,6 @@ public class LTEvent implements Serializable {
 	private Double lon;
 
 	private boolean isPrivate;
-
-	// public Set<LTComment> getComments() {
-	// return comments;
-	// }
-	//
-	// public void setComments(Set<LTComment> comments) {
-	// this.comments = comments;
 
 	public Long getId() {
 		return id;

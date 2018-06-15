@@ -32,9 +32,9 @@ public class LTUser implements Serializable {
 
 	@OneToMany(mappedBy = "user")
 	private Set<LTChat> comments;
-	
+
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
-	private Date member_since = new Date();
+	private Date member_since;
 
 	private String name;
 	private String birthday;
@@ -42,7 +42,6 @@ public class LTUser implements Serializable {
 	private String link;
 	private String image;
 	private String image_long;
-	
 
 	public String getId() {
 		return id;
@@ -124,6 +123,14 @@ public class LTUser implements Serializable {
 
 	public void setComments(Set<LTChat> comments) {
 		this.comments = comments;
+	}
+
+	public Date getMember_since() {
+		return member_since;
+	}
+
+	public void setMember_since(Date member_since) {
+		this.member_since = member_since;
 	}
 
 }

@@ -1,5 +1,6 @@
 package br.com.brenohff.later.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ public class ChatService {
 	private ChatRepository chatRepository;
 
 	public void saveChat(LTChat message) {
+		message.setDtPost(new Date());
 		chatRepository.save(message);
 	}
 

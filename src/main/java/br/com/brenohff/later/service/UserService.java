@@ -1,5 +1,6 @@
 package br.com.brenohff.later.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +32,11 @@ public class UserService {
 
 	public void saveUser(LTUser user) {
 		try {
+			user.setMember_since(new Date());
 			repository.save(user);
 		} catch (Exception e) {
 			throw new ObjectAlreadyExists("Este usuário já está cadastrado.");
 		}
-
 	}
 
 }
