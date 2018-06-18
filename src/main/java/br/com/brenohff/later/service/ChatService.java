@@ -12,20 +12,21 @@ import br.com.brenohff.later.repository.ChatRepository;
 @Service
 public class ChatService {
 
-	@Autowired
-	private ChatRepository chatRepository;
+    @Autowired
+    private ChatRepository chatRepository;
 
-	public void saveChat(LTChat message) {
-		message.setDtPost(new Date());
-		chatRepository.save(message);
-	}
+    public LTChat saveChat(LTChat message) {
+        message.setDtPost(new Date());
+        chatRepository.save(message);
+        return message;
+    }
 
-	public List<LTChat> getAll() {
-		return chatRepository.findAll();
-	}
+    public List<LTChat> getAll() {
+        return chatRepository.findAll();
+    }
 
-	public List<LTChat> getChatByEventId(String eventId) {
-		return chatRepository.getChatByEventId(eventId);
-	}
+    public List<LTChat> getChatByEventId(String eventId) {
+        return chatRepository.getChatByEventId(eventId);
+    }
 
 }

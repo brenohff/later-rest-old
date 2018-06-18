@@ -21,33 +21,32 @@ import br.com.brenohff.later.service.ChatService;
 @Controller
 public class ChatController {
 
-	@Autowired
-	ChatService chatService;
+    @Autowired
+    ChatService chatService;
 
-	@MessageMapping("/event/{eventId}/addUser")
-	@SendTo("/topic/event/{eventId}")
-	public LTChat addUser(@DestinationVariable String eventId, @Payload LTChat chatMessage,
-			SimpMessageHeaderAccessor headerAccessor) {
-		chatMessage.setEventId(eventId);
-		headerAccessor.getSessionAttributes().put("chatMessage", chatMessage);
-		return chatMessage;
-	}
+    @MessageMapping("/event/{eventId}/addUser")
+    @SendTo("/topic/event/{eventId}")
+    public LTChat addUser(@DestinationVariable String eventId, @Payload LTChat chatMessage,
+                          SimpMessageHeaderAccessor headerAccessor) {
+        chatMessage.setEventId(eventId);
+        headerAccessor.getSessionAttributes().put("chatMessage", chatMessage);
+        return chatMessage;
+    }
 
-	@MessageMapping("/event/{eventId}/sendMessage")
-	@SendTo("/topic/event/{eventId}")
-	public LTChat sendMessage(@DestinationVariable String eventId, @Payload LTChat chatMessage) {
-		chatMessage.setEventId(eventId);
-		chatService.saveChat(chatMessage);
-		return chatMessage;
-	}
+    @MessageMapping("/event/{eventId}/sendMessage")
+    @SendTo("/topic/event/{eventId}")
+    public LTChat sendMessage(@DestinationVariable String eventId, @Payload LTChat chatMessage) {
+        chatMessage.setEventId(eventId);
+        return chatService.saveChat(chatMessage);
+    }
 
-	@RequestMapping(value = "/chat/getAll", method = RequestMethod.GET)
-	public ResponseEntity<List<LTChat>> buscaChat() {
-		return ResponseEntity.status(HttpStatus.OK).body(chatService.getAll());
-	}
-	
-	@RequestMapping(value = "/chat/getChatByEventId")
-	public ResponseEntity<List<LTChat>> getChatByEventId(@RequestParam("eventId") String eventId){
-		return ResponseEntity.status(HttpStatus.OK).body(chatService.getChatByEventId(eventId));
-	}
+    @RequestMapping(value = "/chat/getAll", method = RequestMethod.GET)
+    public ResponseEntity<List<LTChat>> buscaChat() {
+        return ResponseEntity.status(HttpStatus.OK).body(chatService.getAll());
+    }
+
+    @RequestMapping(value = "/chat/getChatByEventId")
+    public ResponseEntity<List<LTChat>> getChatByEventId(@RequestParam("eventId") String eventId) {
+        return ResponseEntity.status(HttpStatus.OK).body(chatService.getChatByEventId(eventId));
+    }
 }
