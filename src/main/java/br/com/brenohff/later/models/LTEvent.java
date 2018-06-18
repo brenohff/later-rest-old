@@ -169,4 +169,12 @@ public class LTEvent implements Serializable {
 		this.description = description;
 	}
 
+	public Date getDt_post() {
+		return dt_post;
+	}
+
+	public void setDt_post(Date dt_post) {
+		this.dt_post = dt_post;
+	}
+	
 }

@@ -1,5 +1,6 @@
 package br.com.brenohff.later.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class EventService {
 	CategoryEventRepository categoryEventRepository;
 
 	public void saveEvent(LTEvent event) {
+		event.setDt_post(new Date());
 		eventRepository.save(event);
 		for (LTCategory category : event.getCategories()) {
 			categoryEventRepository.save(new LTCategoryEvent(category.getId(), event.getId()));
