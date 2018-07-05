@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-html,body {
+html, body {
     height: 100%;
     overflow: hidden;
 }
@@ -132,7 +132,6 @@ button.accent {
     margin-top: 10px;
 }
 
-
 #chat-page {
     position: relative;
     height: 100%;
@@ -148,6 +147,10 @@ button.accent {
     height: calc(100% - 60px);
     max-height: 600px;
     position: relative;
+}
+
+.choose-container {
+    min-width: 700px;
 }
 
 #chat-page ul {
@@ -249,7 +252,6 @@ button.accent {
     top: 65px;
     width: 100%;
 }
-
 
 @media screen and (max-width: 730px) {
 
