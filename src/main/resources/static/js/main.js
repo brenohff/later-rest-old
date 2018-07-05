@@ -34,6 +34,46 @@ function showEvents(event){
     if(username) {
         usernamePage.classList.add('hidden');
         choosePage.classList.remove('hidden');
+
+        // $.ajax({
+        //     type: "GET",
+        //     url: "http://later-backend.herokuapp.com/events/getAll",
+        //     dataType: "json",
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'X-Requested-With': 'XMLHttpRequest',
+        //         'Access-Control-Allow-Origin': '*',
+        //         'Access-Control-Allow-Headers': 'origin, content-type, accept, authorization'
+        //     },
+        //     success: function (data) {
+        //         console.log(data);
+        //     }, beforeSend: function () {
+        //     },
+        //     complete: function () {
+        //     },
+        //     error: function (xhr, status, error) {
+        //         console.log("erro");
+        //     }
+        //
+        // });
+
+        // $.ajax({
+        //     type: "GET",
+        //     url: "http://later-backend.herokuapp.com/events/getAll",
+        //     success: function(resp){
+        //         console.log(conteudo);
+        //     },
+        //     headers: {
+        //         "Content-Type" : "application/json",
+        //         "Cache-Control" : "no-cache"
+        //     }
+        // });
+
+        $.get("http://later-backend.herokuapp.com/events/getAll", function (data, status) {
+            for (var i = 0; i < data.length; i++){
+                console.log(data[i].title);
+            }
+        });
     }
     event.preventDefault();
 }
