@@ -7,6 +7,7 @@ var usernameForm = document.querySelector('#usernameForm');
 var messageForm = document.querySelector('#messageForm');
 var messageInput = document.querySelector('#message');
 var messageArea = document.querySelector('#messageArea');
+var eventsArea = document.querySelector('#eventsArea');
 var connectingElement = document.querySelector('.connecting');
 
 var stompClient = null;
@@ -18,60 +19,26 @@ var colors = [
 ];
 
 var user = {
-		id: 1369288233173370,
-		email: 'breno15555@gmail.com',
-		name: 'Breno Henrique',
-		birthday: '05/22/1996',
-		gender: 'male',
-		link: 'https://www.facebook.com/app_scoped_user_id/1369288233173370/',
-		image: 'https://graph.facebook.com/1369288233173370/picture',
-		image_long: 'https://graph.facebook.com/1369288233173370/picture?type=large'
+    id: 1369288233173370,
+    email: 'breno15555@gmail.com',
+    name: 'Breno Henrique',
+    birthday: '05/22/1996',
+    gender: 'male',
+    link: 'https://www.facebook.com/app_scoped_user_id/1369288233173370/',
+    image: 'https://graph.facebook.com/1369288233173370/picture',
+    image_long: 'https://graph.facebook.com/1369288233173370/picture?type=large'
 }
 
-function showEvents(event){
+function showEvents(event) {
     username = document.querySelector('#name').value.trim();
 
-    if(username) {
+    if (username) {
         usernamePage.classList.add('hidden');
         choosePage.classList.remove('hidden');
 
-        // $.ajax({
-        //     type: "GET",
-        //     url: "http://later-backend.herokuapp.com/events/getAll",
-        //     dataType: "json",
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'X-Requested-With': 'XMLHttpRequest',
-        //         'Access-Control-Allow-Origin': '*',
-        //         'Access-Control-Allow-Headers': 'origin, content-type, accept, authorization'
-        //     },
-        //     success: function (data) {
-        //         console.log(data);
-        //     }, beforeSend: function () {
-        //     },
-        //     complete: function () {
-        //     },
-        //     error: function (xhr, status, error) {
-        //         console.log("erro");
-        //     }
-        //
-        // });
-
-        // $.ajax({
-        //     type: "GET",
-        //     url: "http://later-backend.herokuapp.com/events/getAll",
-        //     success: function(resp){
-        //         console.log(conteudo);
-        //     },
-        //     headers: {
-        //         "Content-Type" : "application/json",
-        //         "Cache-Control" : "no-cache"
-        //     }
-        // });
-
         $.get("http://later-backend.herokuapp.com/events/getAll", function (data, status) {
-            for (var i = 0; i < data.length; i++){
-                console.log(data[i].title);
+            for (var i = 0; i < data.length; i++) {
+                inflateEvents(data[i]);
             }
         });
     }
@@ -81,7 +48,7 @@ function showEvents(event){
 function connect(event) {
     username = document.querySelector('#name').value.trim();
 
-    if(username) {
+    if (username) {
         usernamePage.classList.add('hidden');
         chatPage.classList.remove('hidden');
 
@@ -96,10 +63,10 @@ function connect(event) {
 
 function onConnected() {
     // Subscribe to the Public Topic
-    stompClient.subscribe('/topic/event/0', onMessageReceived);
-    
+    stompClient.subscribe('/topic/event/2', onMessageReceived);
+
     // Tell your username to the server
-    stompClient.send("/live/event/0/addUser",
+    stompClient.send("/live/event/2/addUser",
         {},
         JSON.stringify({user: user, type: 'JOIN'})
     )
@@ -117,14 +84,14 @@ function onError(error) {
 function sendMessage(event) {
     var messageContent = messageInput.value.trim();
 
-    if(messageContent && stompClient) {
+    if (messageContent && stompClient) {
         var chatMessage = {
             user: user,
             content: messageInput.value,
             type: 'CHAT'
         };
 
-        stompClient.send("/live/event/0/sendMessage", {}, JSON.stringify(chatMessage));
+        stompClient.send("/live/event/2/sendMessage", {}, JSON.stringify(chatMessage));
         messageInput.value = '';
     }
     event.preventDefault();
@@ -132,11 +99,12 @@ function sendMessage(event) {
 
 
 function onMessageReceived(payload) {
+    console.log(payload);
     var message = JSON.parse(payload.body);
 
     var messageElement = document.createElement('li');
 
-    if(message.type === 'JOIN') {
+    if (message.type === 'JOIN') {
         messageElement.classList.add('event-message');
         message.content = message.user.name + ' entrou!';
     } else if (message.type === 'LEAVE') {
@@ -145,10 +113,14 @@ function onMessageReceived(payload) {
     } else {
         messageElement.classList.add('chat-message');
 
-        var avatarElement = document.createElement('i');
-        var avatarText = document.createTextNode(message.user.name[0]);
-        avatarElement.appendChild(avatarText);
-        avatarElement.style['background-color'] = getAvatarColor(message.user.name);
+        // var avatarElement = document.createElement('i');
+        // var avatarText = document.createTextNode(message.user.name[0]);
+        // avatarElement.appendChild(avatarText);
+        // avatarElement.style['background-color'] = getAvatarColor(message.user.name);
+
+        var avatarElement = document.createElement('img');
+        avatarElement.setAttribute("id", event.title);
+        avatarElement.setAttribute("src", event.user.image);
 
         messageElement.appendChild(avatarElement);
 
@@ -168,6 +140,30 @@ function onMessageReceived(payload) {
     messageArea.scrollTop = messageArea.scrollHeight;
 }
 
+function inflateEvents(event) {
+    var messageElement = document.createElement('li');
+    messageElement.classList.add('chat-message');
+
+    var imageElement = document.createElement('img');
+    imageElement.setAttribute("id", event.title.trim());
+    imageElement.setAttribute("src", "http://agendadebrasilia.com/wp-content/uploads/2018/04/IMG-20180516-WA0015.jpg");
+
+    messageElement.appendChild(imageElement);
+
+    var usernameElement = document.createElement('span');
+    var usernameText = document.createTextNode(event.title);
+    usernameElement.setAttribute("id", event.title.trim());
+    usernameElement.appendChild(usernameText);
+    messageElement.appendChild(usernameElement);
+
+    var textElement = document.createElement('p');
+    var messageText = document.createTextNode(event.date);
+    textElement.setAttribute("id", event.title.trim());
+    textElement.appendChild(messageText);
+
+    messageElement.appendChild(textElement);
+    eventsArea.appendChild(messageElement);
+}
 
 function getAvatarColor(messageSender) {
     var hash = 0;

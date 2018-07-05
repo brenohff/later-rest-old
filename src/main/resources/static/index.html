@@ -25,15 +25,18 @@
         </div>
     </div>
 
-    <div id="choose-page" class="hidden">
-        <div class="choose-container">
+    <div id="choose-page" class="hidden page">
+        <div class="chat-container">
             <div class="chat-header">
                 <h2>Eventos disponíveis:</h2>
             </div>
+            <ul id="eventsArea">
+
+            </ul>
         </div>
     </div>
 
-    <div id="chat-page" class="hidden">
+    <div id="chat-page" class="hidden page">
         <div class="chat-container">
             <div class="chat-header">
                 <h2>Later Chat</h2>
@@ -59,5 +62,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="/js/main.js"></script>
+
+    <script>
+        // $("#eventsArea").on("click", "li", function(e){
+        //     console.log(e);
+        //     // Assuming you do things with the target here.
+        // });
+
+        $(document).ready(function() {
+            $("#eventsArea").click(function(e){
+                alert(this);
+            });
+        });
+    </script>
+
   </body>
 </html>
