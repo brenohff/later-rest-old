@@ -2,6 +2,7 @@
 
 var usernamePage = document.querySelector('#username-page');
 var chatPage = document.querySelector('#chat-page');
+var choosePage = document.querySelector('#choose-page');
 var usernameForm = document.querySelector('#usernameForm');
 var messageForm = document.querySelector('#messageForm');
 var messageInput = document.querySelector('#message');
@@ -25,6 +26,16 @@ var user = {
 		link: 'https://www.facebook.com/app_scoped_user_id/1369288233173370/',
 		image: 'https://graph.facebook.com/1369288233173370/picture',
 		image_long: 'https://graph.facebook.com/1369288233173370/picture?type=large'
+}
+
+function showEvents(event){
+    username = document.querySelector('#name').value.trim();
+
+    if(username) {
+        usernamePage.classList.add('hidden');
+        choosePage.classList.remove('hidden');
+    }
+    event.preventDefault();
 }
 
 function connect(event) {
@@ -128,5 +139,6 @@ function getAvatarColor(messageSender) {
     return colors[index];
 }
 
-usernameForm.addEventListener('submit', connect, true)
+// usernameForm.addEventListener('submit', connect, true)
+usernameForm.addEventListener('submit', showEvents, true)
 messageForm.addEventListener('submit', sendMessage, true)
