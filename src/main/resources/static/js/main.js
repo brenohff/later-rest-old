@@ -20,7 +20,7 @@ var colors = [
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
 
-var user = {
+var user = [{
     id: 1369288233173370,
     email: 'breno15555@gmail.com',
     name: 'Breno Henrique',
@@ -29,7 +29,16 @@ var user = {
     link: 'https://www.facebook.com/app_scoped_user_id/1369288233173370/',
     image: 'https://graph.facebook.com/1369288233173370/picture',
     image_long: 'https://graph.facebook.com/1369288233173370/picture?type=large'
-};
+}, {
+    id: 1760769657315120,
+    email: 'monici.amanda@gmail.com',
+    name: 'Amanda Monici',
+    birthday: '02/26/1997',
+    gender: 'female',
+    link: 'https://www.facebook.com/app_scoped_user_id/YXNpZADpBWEh5ZAnd1d1h1b3NtY2tpZA09HUHFFcEVpQW95dEZAtVmFUalR3QzFsTzV6enRSZA3N2ZAjFRWHlWZATR0NC1iTjBIWVd4VE9TSUQ4S1pUdjNMSVlWSmVKOEdrc2hZAYU1pNU9rVGNpQ0dlOW9xTjV5R0Rm/',
+    image: 'https://graph.facebook.com/1760769657315120/picture',
+    image_long: 'https://graph.facebook.com/1760769657315120/picture?type=large'
+}];
 
 function showEvents(event) {
     username = document.querySelector('#name').value.trim();
@@ -109,11 +118,12 @@ function onError(error) {
 
 function sendMessage(event) {
     var messageContent = messageInput.value.trim();
+    var userSelected = messageContent.split("--/");
 
     if (messageContent && stompClient) {
         var chatMessage = {
-            user: user,
-            content: messageInput.value,
+            user: user[userSelected[0]],
+            content: userSelected[1],
             type: 'CHAT'
         };
 
