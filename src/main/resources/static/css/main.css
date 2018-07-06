@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-html,body {
+html, body {
     height: 100%;
     overflow: hidden;
 }
@@ -132,8 +132,7 @@ button.accent {
     margin-top: 10px;
 }
 
-
-#chat-page {
+.page, #choose-page {
     position: relative;
     height: 100%;
 }
@@ -150,7 +149,19 @@ button.accent {
     position: relative;
 }
 
-#chat-page ul {
+.choose-container {
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff;
+    box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
+    margin-top: 30px;
+    height: calc(100% - 60px);
+    max-height: 600px;
+    position: relative;
+}
+
+.page ul {
     list-style-type: none;
     background-color: #FFF;
     margin: 0;
@@ -160,39 +171,39 @@ button.accent {
     height: calc(100% - 150px);
 }
 
-#chat-page #messageForm {
+.page #messageForm {
     padding: 20px;
 }
 
-#chat-page ul li {
+.page ul li {
     line-height: 1.5rem;
     padding: 10px 20px;
     margin: 0;
     border-bottom: 1px solid #f4f4f4;
 }
 
-#chat-page ul li p {
+.page ul li p {
     margin: 0;
 }
 
-#chat-page .event-message {
+.page .event-message {
     width: 100%;
     text-align: center;
     clear: both;
 }
 
-#chat-page .event-message p {
+.page .event-message p {
     color: #777;
     font-size: 14px;
     word-wrap: break-word;
 }
 
-#chat-page .chat-message {
+.page .chat-message {
     padding-left: 68px;
     position: relative;
 }
 
-#chat-page .chat-message i {
+.page .chat-message i {
     position: absolute;
     width: 42px;
     height: 42px;
@@ -209,12 +220,29 @@ button.accent {
     text-transform: uppercase;
 }
 
-#chat-page .chat-message span {
+.page .chat-message img {
+    position: absolute;
+    width: 42px;
+    height: 42px;
+    overflow: hidden;
+    left: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 18px;
+    line-height: 42px;
+    color: #fff;
+    text-align: center;
+    border-radius: 50%;
+    font-style: normal;
+    text-transform: uppercase;
+}
+
+.page .chat-message span {
     color: #333;
     font-weight: 600;
 }
 
-#chat-page .chat-message p {
+.page .chat-message p {
     color: #43464b;
 }
 
@@ -250,7 +278,6 @@ button.accent {
     width: 100%;
 }
 
-
 @media screen and (max-width: 730px) {
 
     .chat-container {
@@ -272,7 +299,7 @@ button.accent {
         padding: 25px;
     }
 
-    #chat-page ul {
+    .page ul {
         height: calc(100% - 120px);
     }
 
