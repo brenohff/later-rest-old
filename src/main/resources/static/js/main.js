@@ -137,12 +137,10 @@ function onMessageReceived(payload) {
     } else {
         messageElement.classList.add('chat-message');
 
-        var avatarElement = document.createElement('i');
-        var avatarText = document.createTextNode(message.user.name[0]);
-        avatarElement.appendChild(avatarText);
-        avatarElement.style['background-color'] = getAvatarColor(message.user.name);
+        var imageElement = document.createElement('img');
+        imageElement.setAttribute("src", message.user.image);
 
-        messageElement.appendChild(avatarElement);
+        messageElement.appendChild(imageElement);
 
         var usernameElement = document.createElement('span');
         var usernameText = document.createTextNode(message.user.name);
@@ -161,7 +159,7 @@ function onMessageReceived(payload) {
 }
 
 function loadOldMessages() {
-    $.get("http://later-backend.herokuapp.com//chat/getChatByEventId?eventId=" + eventSelected, function (data, status) {
+    $.get("https://later-backend.herokuapp.com//chat/getChatByEventId?eventId=" + eventSelected, function (data, status) {
         for (var i = 0; i < data.length; i++) {
             var e = data[i];
 
