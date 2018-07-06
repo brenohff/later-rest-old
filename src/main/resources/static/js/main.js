@@ -38,7 +38,7 @@ function showEvents(event) {
         usernamePage.classList.add('hidden');
         choosePage.classList.remove('hidden');
 
-        $.get("http://later-backend.herokuapp.com/events/getAll", function (data, status) {
+        $.get("https://later-backend.herokuapp.com/events/getAll", function (data, status) {
             for (var i = 0; i < data.length; i++) {
                 inflateEvents(data[i]);
             }
