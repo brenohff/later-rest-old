@@ -34,8 +34,8 @@ public class EventController {
     }
 
     @RequestMapping(value = "/getEventById")
-    public ResponseEntity<LTEvent> getEventById(@RequestParam(value = "event_id") Long event_id) {
-        return ResponseEntity.ok(service.getEventById(event_id));
+    public LTEvent getEventById(@RequestParam(value = "event_id") Long event_id) {
+        return service.getEventById(event_id);
     }
 
     @RequestMapping(value = "/getEventsByUser")
