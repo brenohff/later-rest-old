@@ -8,14 +8,14 @@ import org.springframework.data.repository.query.Param;
 
 import br.com.brenohff.later.models.LTEvent;
 
+import javax.websocket.server.PathParam;
+
 public interface EventRepository extends JpaRepository<LTEvent, Long> {
 
-	@Query("SELECT e "
-			+ "FROM LTEvent e "
-			+ "WHERE e.user.id = :user_id")
-	public List<LTEvent> getEventsByUser(@Param("user_id") String user_id);
-	
-	@Query("SELECT e FROM LTEvent e WHERE e.isPrivate = false")
-	public List<LTEvent> getPublic();
-	
+    @Query("SELECT e FROM LTEvent e WHERE e.user.id = :user_id")
+    List<LTEvent> getEventsByUser(@Param("user_id") String user_id);
+
+    @Query("SELECT e FROM LTEvent e WHERE e.isPrivate = false")
+    List<LTEvent> getPublic();
+
 }
