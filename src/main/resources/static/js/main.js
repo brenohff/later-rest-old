@@ -54,7 +54,7 @@ function inflateEvents(event) {
     messageElement.classList.add('chat-message');
 
     var imageElement = document.createElement('img');
-    imageElement.setAttribute("src", "http://agendadebrasilia.com/wp-content/uploads/2018/04/IMG-20180516-WA0015.jpg");
+    imageElement.setAttribute("src", event.image);
 
     messageElement.appendChild(imageElement);
 
