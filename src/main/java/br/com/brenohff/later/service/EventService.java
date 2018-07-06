@@ -44,9 +44,11 @@ public class EventService {
     }
 
     public LTEvent getEventById(Long event_id) {
-        try {
-            return eventRepository.findOne(event_id);
-        } catch (Exception e) {
+        LTEvent event = eventRepository.findOne(event_id);
+
+        if (event != null) {
+            return event;
+        } else {
             throw new ObjectNotFound("Evento não encontrado");
         }
     }
