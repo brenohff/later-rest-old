@@ -83,14 +83,13 @@ function connect() {
         choosePage.classList.add('hidden')
         chatPage.classList.remove('hidden');
 
-        var socket = new SockJS('/event');
-        stompClient = Stomp.over(socket);
+        loadOldMessages();
 
-        stompClient.connect({}, onConnected, onError);
     }
 }
 
 function onConnected() {
+
     // Subscribe to the Public Topic
     stompClient.subscribe('/topic/event/' + eventSelected, onMessageReceived);
 
@@ -125,7 +124,6 @@ function sendMessage(event) {
 }
 
 function onMessageReceived(payload) {
-    console.log(payload);
     var message = JSON.parse(payload.body);
 
     var messageElement = document.createElement('li');
@@ -160,6 +158,40 @@ function onMessageReceived(payload) {
 
     messageArea.appendChild(messageElement);
     messageArea.scrollTop = messageArea.scrollHeight;
+}
+
+function loadOldMessages() {
+    $.get("http://later-backend.herokuapp.com//chat/getChatByEventId?eventId=" + eventSelected, function (data, status) {
+        for (var i = 0; i < data.length; i++) {
+            var e = data[i];
+
+            var messageElement = document.createElement('li');
+            messageElement.classList.add('chat-message');
+
+            var imageElement = document.createElement('img');
+            imageElement.setAttribute("src", e.user.image);
+
+            messageElement.appendChild(imageElement);
+
+            var usernameElement = document.createElement('span');
+            var usernameText = document.createTextNode(e.user.name);
+            usernameElement.appendChild(usernameText);
+            messageElement.appendChild(usernameElement);
+
+            var textElement = document.createElement('p');
+            var messageText = document.createTextNode(e.content);
+            textElement.appendChild(messageText);
+
+            messageElement.appendChild(textElement);
+
+            messageArea.appendChild(messageElement);
+            messageArea.scrollTop = messageArea.scrollHeight;
+        }
+
+        var socket = new SockJS('/event');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, onConnected, onError);
+    });
 }
 
 function getAvatarColor(messageSender) {
