@@ -103,7 +103,7 @@ function onConnected() {
 }
 
 function onError(error) {
-    connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
+    connectingElement.textContent = 'Não foi possível conectar ao evento, tente novamente!';
     connectingElement.style.color = 'red';
 }
 
@@ -117,7 +117,7 @@ function sendMessage(event) {
             type: 'CHAT'
         };
 
-        stompClient.send("/live/event/2/sendMessage", {}, JSON.stringify(chatMessage));
+        stompClient.send("/live/event/" + eventSelected + "/sendMessage", {}, JSON.stringify(chatMessage));
         messageInput.value = '';
     }
     event.preventDefault();
@@ -202,7 +202,5 @@ function getAvatarColor(messageSender) {
     return colors[index];
 }
 
-
-// usernameForm.addEventListener('submit', connect, true);
 usernameForm.addEventListener('submit', showEvents, true);
 messageForm.addEventListener('submit', sendMessage, true);
