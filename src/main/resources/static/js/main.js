@@ -139,14 +139,10 @@ function onMessageReceived(payload) {
     } else {
         messageElement.classList.add('chat-message');
 
-        // var avatarElement = document.createElement('i');
-        // var avatarText = document.createTextNode(message.user.name[0]);
-        // avatarElement.appendChild(avatarText);
-        // avatarElement.style['background-color'] = getAvatarColor(message.user.name);
-
-        var avatarElement = document.createElement('img');
-        avatarElement.setAttribute("id", event.title);
-        avatarElement.setAttribute("src", event.user.image);
+        var avatarElement = document.createElement('i');
+        var avatarText = document.createTextNode(message.user.name[0]);
+        avatarElement.appendChild(avatarText);
+        avatarElement.style['background-color'] = getAvatarColor(message.user.name);
 
         messageElement.appendChild(avatarElement);
 
