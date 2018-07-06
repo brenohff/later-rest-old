@@ -44,11 +44,12 @@ public class EventController {
     }
 
     @RequestMapping(value = "/delete")
-    public void delete() {
-        List<LTEvent> events = service.getPublic();
-        for (LTEvent event : events) {
-            service.delete(event);
-        }
+    public void delete(@RequestParam(value = "event_id") Long event_id) {
+//        List<LTEvent> events = service.getPublic();
+//        for (LTEvent event : events) {
+//            service.delete(event);
+//        }
+        service.delete(event_id);
     }
 
 }

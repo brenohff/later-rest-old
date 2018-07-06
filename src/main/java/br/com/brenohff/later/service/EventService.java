@@ -64,8 +64,8 @@ public class EventService {
         }
     }
 
-    public void delete(LTEvent event) {
-        eventRepository.delete(event.getId());
+    public void delete(Long event_id) {
+        eventRepository.delete(event_id);
     }
 
 }
