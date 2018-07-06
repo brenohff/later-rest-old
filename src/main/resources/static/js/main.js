@@ -13,6 +13,8 @@ var connectingElement = document.querySelector('.connecting');
 var stompClient = null;
 var username = null;
 
+var eventSelected = null;
+
 var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
@@ -27,7 +29,7 @@ var user = {
     link: 'https://www.facebook.com/app_scoped_user_id/1369288233173370/',
     image: 'https://graph.facebook.com/1369288233173370/picture',
     image_long: 'https://graph.facebook.com/1369288233173370/picture?type=large'
-}
+};
 
 function showEvents(event) {
     username = document.querySelector('#name').value.trim();
@@ -45,11 +47,40 @@ function showEvents(event) {
     event.preventDefault();
 }
 
-function connect(event) {
+function inflateEvents(event) {
+    var messageElement = document.createElement('li');
+    messageElement.setAttribute("id", event.id);
+    messageElement.setAttribute("onClick", "liClicked(this)");
+    messageElement.classList.add('chat-message');
+
+    var imageElement = document.createElement('img');
+    imageElement.setAttribute("src", "http://agendadebrasilia.com/wp-content/uploads/2018/04/IMG-20180516-WA0015.jpg");
+
+    messageElement.appendChild(imageElement);
+
+    var usernameElement = document.createElement('span');
+    var usernameText = document.createTextNode(event.title);
+    usernameElement.appendChild(usernameText);
+    messageElement.appendChild(usernameElement);
+
+    var textElement = document.createElement('p');
+    var messageText = document.createTextNode(event.date);
+    textElement.appendChild(messageText);
+
+    messageElement.appendChild(textElement);
+    eventsArea.appendChild(messageElement);
+}
+
+function liClicked(obj) {
+    eventSelected = $(obj).attr('id');
+    connect();
+}
+
+function connect() {
     username = document.querySelector('#name').value.trim();
 
     if (username) {
-        usernamePage.classList.add('hidden');
+        choosePage.classList.add('hidden')
         chatPage.classList.remove('hidden');
 
         var socket = new SockJS('/event');
@@ -57,9 +88,7 @@ function connect(event) {
 
         stompClient.connect({}, onConnected, onError);
     }
-    event.preventDefault();
 }
-
 
 function onConnected() {
     // Subscribe to the Public Topic
@@ -74,12 +103,10 @@ function onConnected() {
     connectingElement.classList.add('hidden');
 }
 
-
 function onError(error) {
     connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
     connectingElement.style.color = 'red';
 }
-
 
 function sendMessage(event) {
     var messageContent = messageInput.value.trim();
@@ -96,7 +123,6 @@ function sendMessage(event) {
     }
     event.preventDefault();
 }
-
 
 function onMessageReceived(payload) {
     console.log(payload);
@@ -140,31 +166,6 @@ function onMessageReceived(payload) {
     messageArea.scrollTop = messageArea.scrollHeight;
 }
 
-function inflateEvents(event) {
-    var messageElement = document.createElement('li');
-    messageElement.classList.add('chat-message');
-
-    var imageElement = document.createElement('img');
-    imageElement.setAttribute("id", event.title.trim());
-    imageElement.setAttribute("src", "http://agendadebrasilia.com/wp-content/uploads/2018/04/IMG-20180516-WA0015.jpg");
-
-    messageElement.appendChild(imageElement);
-
-    var usernameElement = document.createElement('span');
-    var usernameText = document.createTextNode(event.title);
-    usernameElement.setAttribute("id", event.title.trim());
-    usernameElement.appendChild(usernameText);
-    messageElement.appendChild(usernameElement);
-
-    var textElement = document.createElement('p');
-    var messageText = document.createTextNode(event.date);
-    textElement.setAttribute("id", event.title.trim());
-    textElement.appendChild(messageText);
-
-    messageElement.appendChild(textElement);
-    eventsArea.appendChild(messageElement);
-}
-
 function getAvatarColor(messageSender) {
     var hash = 0;
     for (var i = 0; i < messageSender.length; i++) {
@@ -175,6 +176,7 @@ function getAvatarColor(messageSender) {
     return colors[index];
 }
 
-// usernameForm.addEventListener('submit', connect, true)
-usernameForm.addEventListener('submit', showEvents, true)
-messageForm.addEventListener('submit', sendMessage, true)
+
+// usernameForm.addEventListener('submit', connect, true);
+usernameForm.addEventListener('submit', showEvents, true);
+messageForm.addEventListener('submit', sendMessage, true);
