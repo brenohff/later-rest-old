@@ -92,10 +92,10 @@ function connect() {
 
 function onConnected() {
     // Subscribe to the Public Topic
-    stompClient.subscribe('/topic/event/2', onMessageReceived);
+    stompClient.subscribe('/topic/event/' + eventSelected, onMessageReceived);
 
     // Tell your username to the server
-    stompClient.send("/live/event/2/addUser",
+    stompClient.send("/live/event/" + eventSelected + "/addUser",
         {},
         JSON.stringify({user: user, type: 'JOIN'})
     )
