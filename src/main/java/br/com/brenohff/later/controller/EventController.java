@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import br.com.brenohff.later.models.LTEvent;
 import br.com.brenohff.later.service.EventService;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping(value = "/events")
@@ -21,6 +22,12 @@ public class EventController {
     @RequestMapping(value = "/saveEvent", method = RequestMethod.POST)
     public void saveEvent(@RequestBody LTEvent event) {
         service.saveEvent(event);
+    }
+
+    @RequestMapping(value = "/teste", method = RequestMethod.POST)
+    @ResponseBody
+    public void teste(@RequestPart("event") LTEvent event, @RequestPart MultipartFile[] file) {
+        System.out.println(event.getDescription());
     }
 
     @RequestMapping(value = "/getAll")
