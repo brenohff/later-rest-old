@@ -1,7 +1,9 @@
 package br.com.brenohff.later.models;
 
+import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.net.URI;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,6 +12,7 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author breno.franco
@@ -44,9 +47,6 @@ public class LTEvent implements Serializable {
     private String locale;
     private String image;
 
-    @Transient
-    private InputStream inputStream;
-
     private Double price;
     private Double lat;
     private Double lon;
@@ -55,13 +55,6 @@ public class LTEvent implements Serializable {
 
 
     //region getters and setters
-    public InputStream getInputStream() {
-        return inputStream;
-    }
-
-    public void setInputStream(InputStream inputStream) {
-        this.inputStream = inputStream;
-    }
 
     public Long getId() {
         return id;
