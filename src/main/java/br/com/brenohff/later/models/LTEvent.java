@@ -1,25 +1,21 @@
 package br.com.brenohff.later.models;
 
+import java.awt.image.BufferedImage;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.net.URI;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author breno.franco
- *
  */
 
 @Entity
@@ -27,154 +23,159 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LTEvent implements Serializable {
 
-	private static final long serialVersionUID = -1082383445658167904L;
+    private static final long serialVersionUID = -1082383445658167904L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@ManyToMany(mappedBy = "events")
-	private Set<LTCategory> categories = new HashSet<>();
+    @ManyToMany(mappedBy = "events")
+    private Set<LTCategory> categories = new HashSet<>();
 
-	@ManyToOne()
-	@JoinColumn(name = "user_id", nullable = false)
-	private LTUser user;
+    @ManyToOne()
+    @JoinColumn(name = "user_id", nullable = false)
+    private LTUser user;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
-	private Date dt_post;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
+    private Date dt_post;
 
-	private String title;
-	private String description;
-	private String status;
-	private String date;
-	private String hour;
-	private String locale;
-	private String image;
+    private String title;
+    private String description;
+    private String status;
+    private String date;
+    private String hour;
+    private String locale;
+    private String image;
 
-	private Double price;
-	private Double lat;
-	private Double lon;
+    private Double price;
+    private Double lat;
+    private Double lon;
 
-	private boolean isPrivate;
+    private boolean isPrivate;
 
-	public Long getId() {
-		return id;
-	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    //region getters and setters
 
-	public LTUser getUser() {
-		return user;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setUser(LTUser user) {
-		this.user = user;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public LTUser getUser() {
+        return user;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public void setUser(LTUser user) {
+        this.user = user;
+    }
 
-	public String getDate() {
-		return date;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public void setDate(String date) {
-		this.date = date;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public String getHour() {
-		return hour;
-	}
+    public String getDate() {
+        return date;
+    }
 
-	public void setHour(String hour) {
-		this.hour = hour;
-	}
+    public void setDate(String date) {
+        this.date = date;
+    }
 
-	public String getLocale() {
-		return locale;
-	}
+    public String getHour() {
+        return hour;
+    }
 
-	public void setLocale(String locale) {
-		this.locale = locale;
-	}
+    public void setHour(String hour) {
+        this.hour = hour;
+    }
 
-	public Double getPrice() {
-		return price;
-	}
+    public String getLocale() {
+        return locale;
+    }
 
-	public void setPrice(Double price) {
-		this.price = price;
-	}
+    public void setLocale(String locale) {
+        this.locale = locale;
+    }
 
-	public Double getLat() {
-		return lat;
-	}
+    public Double getPrice() {
+        return price;
+    }
 
-	public void setLat(Double lat) {
-		this.lat = lat;
-	}
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
-	public Double getLon() {
-		return lon;
-	}
+    public Double getLat() {
+        return lat;
+    }
 
-	public void setLon(Double lon) {
-		this.lon = lon;
-	}
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
 
-	public boolean isPrivate() {
-		return isPrivate;
-	}
+    public Double getLon() {
+        return lon;
+    }
 
-	public void setPrivate(boolean isPrivate) {
-		this.isPrivate = isPrivate;
-	}
+    public void setLon(Double lon) {
+        this.lon = lon;
+    }
 
-	public String getImage() {
-		return image;
-	}
+    public boolean isPrivate() {
+        return isPrivate;
+    }
 
-	public void setImage(String image) {
-		this.image = image;
-	}
+    public void setPrivate(boolean isPrivate) {
+        this.isPrivate = isPrivate;
+    }
 
-	public Set<LTCategory> getCategories() {
-		return categories;
-	}
+    public String getImage() {
+        return image;
+    }
 
-	public void setCategories(Set<LTCategory> categories) {
-		this.categories = categories;
-	}
+    public void setImage(String image) {
+        this.image = image;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public Set<LTCategory> getCategories() {
+        return categories;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public void setCategories(Set<LTCategory> categories) {
+        this.categories = categories;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public Date getDt_post() {
-		return dt_post;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDt_post(Date dt_post) {
-		this.dt_post = dt_post;
-	}
-	
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getDt_post() {
+        return dt_post;
+    }
+
+    public void setDt_post(Date dt_post) {
+        this.dt_post = dt_post;
+    }
+
+    //endregion
+
 }

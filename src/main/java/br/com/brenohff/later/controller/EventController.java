@@ -1,14 +1,14 @@
 package br.com.brenohff.later.controller;
 
-import java.util.List;
-
+import br.com.brenohff.later.models.LTEvent;
+import br.com.brenohff.later.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import br.com.brenohff.later.models.LTEvent;
-import br.com.brenohff.later.service.EventService;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/events")
@@ -19,8 +19,9 @@ public class EventController {
     EventService service;
 
     @RequestMapping(value = "/saveEvent", method = RequestMethod.POST)
-    public void saveEvent(@RequestBody LTEvent event) {
-        service.saveEvent(event);
+    public ResponseEntity<Void> saveEvent(@RequestPart("event") String event, @RequestPart MultipartFile file) {
+        service.saveEvent(event, file);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @RequestMapping(value = "/getAll")
@@ -45,10 +46,6 @@ public class EventController {
 
     @RequestMapping(value = "/delete")
     public void delete(@RequestParam(value = "event_id") Long event_id) {
-//        List<LTEvent> events = service.getPublic();
-//        for (LTEvent event : events) {
-//            service.delete(event);
-//        }
         service.delete(event_id);
     }
 
