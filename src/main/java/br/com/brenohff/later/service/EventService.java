@@ -1,11 +1,5 @@
 package br.com.brenohff.later.service;
 
-import java.util.Date;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import br.com.brenohff.later.models.LTCategory;
 import br.com.brenohff.later.models.LTCategoryEvent;
 import br.com.brenohff.later.models.LTEvent;
@@ -13,7 +7,13 @@ import br.com.brenohff.later.repository.CategoryEventRepository;
 import br.com.brenohff.later.repository.EventRepository;
 import br.com.brenohff.later.repository.UserRepository;
 import br.com.brenohff.later.service.exceptions.ObjectNotFound;
-import org.w3c.dom.events.EventException;
+import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class EventService {
@@ -27,12 +27,27 @@ public class EventService {
     @Autowired
     CategoryEventRepository categoryEventRepository;
 
-    public void saveEvent(LTEvent event) {
+    @Autowired
+    S3Service s3Service;
+
+//    public void saveEvent(LTEvent event) {
+//        event.setDt_post(new Date());
+//        eventRepository.save(event);
+//        for (LTCategory category : event.getCategories()) {
+//            categoryEventRepository.save(new LTCategoryEvent(category.getId(), event.getId()));
+//        }
+//    }
+
+    public void saveEvent(String e, MultipartFile file) {
+        LTEvent event = new Gson().fromJson(e, LTEvent.class);
+
         event.setDt_post(new Date());
+        event.setImage(s3Service.uploadFile(file).toString());
         eventRepository.save(event);
         for (LTCategory category : event.getCategories()) {
             categoryEventRepository.save(new LTCategoryEvent(category.getId(), event.getId()));
         }
+
     }
 
     public List<LTEvent> getPublic() {

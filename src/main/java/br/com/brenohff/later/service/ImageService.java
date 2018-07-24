@@ -1,7 +1,6 @@
 package br.com.brenohff.later.service;
 
 import br.com.brenohff.later.service.exceptions.FileException;
-import com.amazonaws.services.dynamodbv2.xspec.S;
 import org.apache.commons.io.FilenameUtils;
 import org.imgscalr.Scalr;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,7 @@ public class ImageService {
 
     public BufferedImage getJpgImageFromFile(MultipartFile uploadedFile) {
         String ext = FilenameUtils.getExtension(uploadedFile.getOriginalFilename());
-        if (!"png".equals(ext) && !"jpg".equals(ext)) {
+        if (!"png".equals(ext) && !"jpg".equals(ext) && !"jpeg".equals(ext)) {
             throw new FileException("Somente imagens JPG e PNG são permitidas =(");
         }
 
