@@ -29,13 +29,9 @@ public class EventController {
     }
 
     @RequestMapping(value = "/teste", method = RequestMethod.POST)
-    @ResponseBody
-    public void teste(@RequestPart("event") LTEvent event, @RequestPart MultipartFile file) {
-        try {
-            s3Service.uploadFile(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public @ResponseBody
+    void teste(@RequestPart("event") String event, @RequestPart MultipartFile file) {
+        s3Service.uploadFile(file);
     }
 
     @RequestMapping(value = "/getAll")

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -26,25 +27,33 @@ public class S3Service {
     @Autowired
     private AmazonS3 s3Client;
 
+    @Autowired
+    private ImageService imageService;
+
     @Value("${s3.bucket}")
     private String bucket;
 
-    public URI uploadFile(MultipartFile multipartFile) throws IOException {
-        InputStream inputStream = multipartFile.getInputStream();
-        String contentType = multipartFile.getContentType();
-        return uploadFile(inputStream, contentType);
+    @Value("${img.event.width.size}")
+    private Integer width;
 
+    @Value("${img.event.height.size}")
+    private Integer height;
+
+    public URI uploadFile(MultipartFile multipartFile) {
+        BufferedImage bufferedImage = imageService.getJpgImageFromFile(multipartFile);
+        bufferedImage = imageService.resize(bufferedImage, width, height);
+        return uploadFile(imageService.getInputStream(bufferedImage, "jpg"), "image");
     }
 
     public URI uploadFile(InputStream inputStream, String contentType) {
         try {
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.setContentType(contentType);
-            String fileName = generateFileName();
+            String fileName = generateFileName() + ".jpg";
 
-            LOG.info("Iniciando upload...");
+            LOG.info("Iniciando upload do arquivo " + fileName + "...");
             s3Client.putObject(bucket, fileName, inputStream, metadata);
-            LOG.info("Upload finalizado!");
+            LOG.info("Upload finalizado! " + fileName);
 
             return s3Client.getUrl(bucket, fileName).toURI();
         } catch (AmazonServiceException e) {
@@ -65,7 +74,7 @@ public class S3Service {
         Random random = new Random();
         StringBuilder armazenaChaves = new StringBuilder();
         int index;
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 5; i++) {
             index = random.nextInt(letras.length());
             armazenaChaves.append(letras, index, index + 1);
         }

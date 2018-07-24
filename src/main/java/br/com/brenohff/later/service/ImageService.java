@@ -58,7 +58,7 @@ public class ImageService {
         return Scalr.crop(image, (image.getWidth() / 2) - (min / 2), (image.getHeight() / 2) - (min / 2), min, min);
     }
 
-    public BufferedImage resize(BufferedImage image, int size) {
-        return Scalr.resize(image, Scalr.Method.ULTRA_QUALITY, size);
+    public BufferedImage resize(BufferedImage image, int width, int height) {
+        return Scalr.resize(image, Scalr.Method.ULTRA_QUALITY, width, height);
     }
 }
