@@ -5,7 +5,7 @@
 
     <groupId>br.com.brenohff.later</groupId>
     <artifactId>later-backend</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.4-SNAPSHOT</version>
 
     <name>later-backend</name>
     <description>Later Backend</description>

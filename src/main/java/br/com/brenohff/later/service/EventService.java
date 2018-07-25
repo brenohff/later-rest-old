@@ -30,14 +30,6 @@ public class EventService {
     @Autowired
     S3Service s3Service;
 
-//    public void saveEvent(LTEvent event) {
-//        event.setDt_post(new Date());
-//        eventRepository.save(event);
-//        for (LTCategory category : event.getCategories()) {
-//            categoryEventRepository.save(new LTCategoryEvent(category.getId(), event.getId()));
-//        }
-//    }
-
     public void saveEvent(String e, MultipartFile file) {
         LTEvent event = new Gson().fromJson(e, LTEvent.class);
 
@@ -47,7 +39,6 @@ public class EventService {
         for (LTCategory category : event.getCategories()) {
             categoryEventRepository.save(new LTCategoryEvent(category.getId(), event.getId()));
         }
-
     }
 
     public List<LTEvent> getPublic() {
