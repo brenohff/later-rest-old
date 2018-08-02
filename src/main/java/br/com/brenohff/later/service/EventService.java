@@ -1,8 +1,8 @@
 package br.com.brenohff.later.service;
 
-import br.com.brenohff.later.models.LTCategory;
-import br.com.brenohff.later.models.LTCategoryEvent;
-import br.com.brenohff.later.models.LTEvent;
+import br.com.brenohff.later.model.LTCategory;
+import br.com.brenohff.later.model.LTCategoryEvent;
+import br.com.brenohff.later.model.LTEvent;
 import br.com.brenohff.later.repository.CategoryEventRepository;
 import br.com.brenohff.later.repository.EventRepository;
 import br.com.brenohff.later.repository.UserRepository;

@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.brenohff.later.models.LTVersion;
+import br.com.brenohff.later.model.LTVersion;
 
 public interface VersionRepository extends JpaRepository<LTVersion, Date> {
 

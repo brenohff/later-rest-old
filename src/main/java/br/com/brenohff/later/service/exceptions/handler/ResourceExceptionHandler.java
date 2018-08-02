@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import br.com.brenohff.later.models.DetalhesErro;
+import br.com.brenohff.later.model.DetalhesErro;
 import br.com.brenohff.later.service.exceptions.ObjectAlreadyExists;
 import br.com.brenohff.later.service.exceptions.ObjectNotFound;
 

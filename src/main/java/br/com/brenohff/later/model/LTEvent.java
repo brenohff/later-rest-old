@@ -1,9 +1,6 @@
-package br.com.brenohff.later.models;
+package br.com.brenohff.later.model;
 
-import java.awt.image.BufferedImage;
-import java.io.InputStream;
 import java.io.Serializable;
-import java.net.URI;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +9,6 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author breno.franco
