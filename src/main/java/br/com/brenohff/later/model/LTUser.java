@@ -1,4 +1,4 @@
-package br.com.brenohff.later.models;
+package br.com.brenohff.later.model;
 
 import java.io.Serializable;
 import java.util.Date;

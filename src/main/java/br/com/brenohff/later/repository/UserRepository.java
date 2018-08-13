@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import br.com.brenohff.later.models.LTUser;
+import br.com.brenohff.later.model.LTUser;
 
 public interface UserRepository extends JpaRepository<LTUser, String> {
 	

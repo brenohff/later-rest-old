@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.brenohff.later.models.LTCategory;
+import br.com.brenohff.later.model.LTCategory;
 import br.com.brenohff.later.repository.CategoryRepository;
 
 @Service

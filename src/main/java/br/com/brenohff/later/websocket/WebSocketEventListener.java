@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
-import br.com.brenohff.later.models.LTChat;
+import br.com.brenohff.later.model.LTChat;
 
 @Component
 public class WebSocketEventListener {

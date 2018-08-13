@@ -1,4 +1,4 @@
-package br.com.brenohff.later.controller;
+package br.com.brenohff.later.api;
 
 import java.util.List;
 
@@ -11,12 +11,9 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import br.com.brenohff.later.models.LTChat;
+import br.com.brenohff.later.model.LTChat;
 import br.com.brenohff.later.service.ChatService;
 
 @Controller
@@ -42,12 +39,12 @@ public class ChatController {
         return chatService.saveChat(chatMessage);
     }
 
-    @RequestMapping(value = "/chat/getAll", method = RequestMethod.GET)
+    @GetMapping(value = "/chat/getAll")
     public ResponseEntity<List<LTChat>> buscaChat() {
         return ResponseEntity.status(HttpStatus.OK).body(chatService.getAll());
     }
 
-    @RequestMapping(value = "/chat/getChatByEventId")
+    @GetMapping(value = "/chat/getChatByEventId")
     public ResponseEntity<List<LTChat>> getChatByEventId(@RequestParam("eventId") String eventId) {
         return ResponseEntity.status(HttpStatus.OK).body(chatService.getChatByEventId(eventId));
     }

@@ -1,4 +1,4 @@
-package br.com.brenohff.later.models;
+package br.com.brenohff.later.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

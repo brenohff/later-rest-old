@@ -1,11 +1,11 @@
-package br.com.brenohff.later.controller;
+package br.com.brenohff.later.api;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import br.com.brenohff.later.models.LTUser;
+import br.com.brenohff.later.model.LTUser;
 import br.com.brenohff.later.service.UserService;
 
 @RestController
@@ -16,17 +16,17 @@ public class UserController {
 	@Autowired
 	UserService service;
 
-	@RequestMapping(value = "/getAll")
+	@GetMapping(value = "/getAll")
 	public List<LTUser> getAllUsers() {
 		return service.getAll();
 	}
 
-	@RequestMapping(value = "/getUser")
+	@GetMapping(value = "/getUser")
 	public LTUser getByFaceID(@RequestParam(value="id") String id) {
 		return service.getUserByID(id);
 	}
 
-	@RequestMapping(value = "/saveUser", method = RequestMethod.POST)
+	@PostMapping(value = "/saveUser")
 	public void saveUser(@RequestBody LTUser user) {
 		service.saveUser(user);
 	}

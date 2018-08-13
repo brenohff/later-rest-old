@@ -1,0 +1,6 @@
+FROM openjdk:8-jre-alpine
+RUN mkdir -p /opt/microservice
+ADD maven/sippe-emi-ms-aut-tela-detalhe.jar /opt/microservice/sippe-emi-ms-aut-tela-detalhe.jar
+WORKDIR /opt/microservice
+EXPOSE 8080
+ENTRYPOINT ["java", "-Duser.timezone=America/Sao_Paulo", "-Djava.security.egd=file:/dev/./urandom", "-Xmx1024m", "-jar", "sippe-emi-ms-aut-tela-detalhe.jar"]
