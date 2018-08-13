@@ -5,7 +5,7 @@
 
     <groupId>br.com.brenohff.later</groupId>
     <artifactId>later-backend</artifactId>
-    <version>0.0.4-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
 
     <name>later-backend</name>
     <description>Later Backend</description>
@@ -52,9 +52,9 @@
         </dependency>
 
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.4</version>
         </dependency>
 
         <dependency>
@@ -75,7 +75,6 @@
             <version>4.2</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
@@ -94,6 +93,12 @@
             <version>2.7.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.2</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
