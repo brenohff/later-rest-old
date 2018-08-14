@@ -22,9 +22,9 @@ services:
       PGADMIN_DEFAULT_PASSWORD: admin
     restart: unless-stopped
 
-  docker-app:
-      image: brenohff/later-backend
-      ports:
-        - "8080:8080"
-      depends_on:
-        - postgres
+#  docker-app:
+#      image: brenohff/later-backend
+#      ports:
+#        - "8080:8080"
+#      depends_on:
+#        - postgres
