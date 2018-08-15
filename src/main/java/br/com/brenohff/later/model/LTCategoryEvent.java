@@ -24,6 +24,9 @@ public class LTCategoryEvent implements Serializable {
     @Id
     private Long event_id;
 
+    public LTCategoryEvent() {
+    }
+
     public LTCategoryEvent(Long category_id, Long event_id) {
         super();
         this.category_id = category_id;
