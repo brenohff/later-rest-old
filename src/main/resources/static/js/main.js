@@ -20,7 +20,7 @@ var colors = [
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
 
-var user = [{
+var user = {
     id: 1369288233173370,
     email: 'breno15555@gmail.com',
     name: 'Breno Henrique',
@@ -29,16 +29,7 @@ var user = [{
     link: 'https://www.facebook.com/app_scoped_user_id/1369288233173370/',
     image: 'https://graph.facebook.com/1369288233173370/picture',
     image_long: 'https://graph.facebook.com/1369288233173370/picture?type=large'
-}, {
-    id: 1760769657315120,
-    email: 'monici.amanda@gmail.com',
-    name: 'Amanda Monici',
-    birthday: '02/26/1997',
-    gender: 'female',
-    link: 'https://www.facebook.com/app_scoped_user_id/YXNpZADpBWEh5ZAnd1d1h1b3NtY2tpZA09HUHFFcEVpQW95dEZAtVmFUalR3QzFsTzV6enRSZA3N2ZAjFRWHlWZATR0NC1iTjBIWVd4VE9TSUQ4S1pUdjNMSVlWSmVKOEdrc2hZAYU1pNU9rVGNpQ0dlOW9xTjV5R0Rm/',
-    image: 'https://graph.facebook.com/1760769657315120/picture',
-    image_long: 'https://graph.facebook.com/1760769657315120/picture?type=large'
-}];
+};
 
 function showEvents(event) {
     username = document.querySelector('#name').value.trim();
@@ -47,7 +38,7 @@ function showEvents(event) {
         usernamePage.classList.add('hidden');
         choosePage.classList.remove('hidden');
 
-        $.get("https://later-backend.herokuapp.com/events/getAll", function (data, status) {
+        $.get("http://142.93.192.165:8080/events/getAll", function (data, status) {
             for (var i = 0; i < data.length; i++) {
                 inflateEvents(data[i]);
             }
@@ -105,7 +96,7 @@ function onConnected() {
     // Tell your username to the server
     stompClient.send("/live/event/" + eventSelected + "/addUser",
         {},
-        JSON.stringify({user: user, type: 'JOIN'})
+        JSON.stringify({users: user, type: 'JOIN'})
     )
 
     connectingElement.classList.add('hidden');
@@ -118,12 +109,11 @@ function onError(error) {
 
 function sendMessage(event) {
     var messageContent = messageInput.value.trim();
-    var userSelected = messageContent.split("--/");
 
     if (messageContent && stompClient) {
         var chatMessage = {
-            user: user[userSelected[0]],
-            content: userSelected[1],
+            users: user,
+            content: messageContent,
             type: 'CHAT'
         };
 
@@ -140,20 +130,20 @@ function onMessageReceived(payload) {
 
     if (message.type === 'JOIN') {
         messageElement.classList.add('event-message');
-        message.content = message.user.name + ' entrou!';
+        message.content = message.users.name + ' entrou!';
     } else if (message.type === 'LEAVE') {
         messageElement.classList.add('event-message');
-        message.content = message.user.name + ' saiu!';
+        message.content = message.users.name + ' saiu!';
     } else {
         messageElement.classList.add('chat-message');
 
         var imageElement = document.createElement('img');
-        imageElement.setAttribute("src", message.user.image);
+        imageElement.setAttribute("src", message.users.image);
 
         messageElement.appendChild(imageElement);
 
         var usernameElement = document.createElement('span');
-        var usernameText = document.createTextNode(message.user.name);
+        var usernameText = document.createTextNode(message.users.name);
         usernameElement.appendChild(usernameText);
         messageElement.appendChild(usernameElement);
     }
@@ -169,7 +159,7 @@ function onMessageReceived(payload) {
 }
 
 function loadOldMessages() {
-    $.get("https://later-backend.herokuapp.com//chat/getChatByEventId?eventId=" + eventSelected, function (data, status) {
+    $.get("http://142.93.192.165:8080/chat/getChatByEventId?eventId=" + eventSelected, function (data, status) {
         for (var i = 0; i < data.length; i++) {
             var e = data[i];
 
@@ -177,12 +167,12 @@ function loadOldMessages() {
             messageElement.classList.add('chat-message');
 
             var imageElement = document.createElement('img');
-            imageElement.setAttribute("src", e.user.image);
+            imageElement.setAttribute("src", e.users.image);
 
             messageElement.appendChild(imageElement);
 
             var usernameElement = document.createElement('span');
-            var usernameText = document.createTextNode(e.user.name);
+            var usernameText = document.createTextNode(e.users.name);
             usernameElement.appendChild(usernameText);
             messageElement.appendChild(usernameElement);
 
