@@ -1,5 +1,6 @@
 package br.com.brenohff.later.websocket;
 
+import br.com.brenohff.later.enums.MessageType;
 import br.com.brenohff.later.model.LTChat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +35,7 @@ public class WebSocketEventListener {
             logger.info("User Disconnected : " + chatMessage.getUsers().getName());
 
             LTChat ltChat = new LTChat();
-            ltChat.setType(LTChat.MessageType.LEAVE);
+            ltChat.setType(MessageType.LEAVE);
             ltChat.setUsers(chatMessage.getUsers());
 
             messagingTemplate.convertAndSend("/topic/event/" + chatMessage.getEventId(), ltChat);
