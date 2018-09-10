@@ -1,5 +1,6 @@
 package br.com.brenohff.later.model;
 
+import br.com.brenohff.later.enums.EventStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
@@ -40,7 +41,7 @@ public class LTEvent implements Serializable {
 
     private String title;
     private String description;
-    private String status;
+    private EventStatus status;
     private String date;
     private String hour;
     private String locale;

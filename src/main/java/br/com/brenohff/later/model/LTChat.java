@@ -1,5 +1,6 @@
 package br.com.brenohff.later.model;
 
+import br.com.brenohff.later.enums.MessageType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
@@ -33,7 +34,4 @@ public class LTChat implements Serializable {
     private String content;
     private String eventId;
 
-    public enum MessageType {
-        CHAT, JOIN, LEAVE
-    }
 }

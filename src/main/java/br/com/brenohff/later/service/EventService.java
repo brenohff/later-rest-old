@@ -1,5 +1,6 @@
 package br.com.brenohff.later.service;
 
+import br.com.brenohff.later.enums.EventStatus;
 import br.com.brenohff.later.model.LTCategory;
 import br.com.brenohff.later.model.LTCategoryEvent;
 import br.com.brenohff.later.model.LTEvent;
@@ -70,8 +71,8 @@ public class EventService {
         }
     }
 
-    public void deleteEventById(Long event_id) {
-        eventRepository.deleteById(event_id);
+    public void changeEventStatus(EventStatus eventStatus) {
+        eventRepository.changeEventStatus(eventStatus);
     }
 
 }

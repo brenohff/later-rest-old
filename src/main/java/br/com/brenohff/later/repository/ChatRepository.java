@@ -11,6 +11,6 @@ import br.com.brenohff.later.model.LTChat;
 public interface ChatRepository extends JpaRepository<LTChat, Long>{
 	
 	@Query("SELECT c FROM LTChat c WHERE c.eventId = :eventId")
-	public List<LTChat> getChatByEventId(@Param("eventId") String eventId);
+	List<LTChat> getChatByEventId(@Param("eventId") String eventId);
 
 }
