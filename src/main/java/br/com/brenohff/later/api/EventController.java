@@ -44,9 +44,9 @@ public class EventController {
         return service.getEventsByUser(user_id);
     }
 
-    @GetMapping(value = "/delete")
-    public void delete(@RequestParam(value = "event_id") Long event_id) {
-        service.delete(event_id);
+    @GetMapping(value = "/deleteEventById")
+    public void deleteEventById(@RequestParam(value = "event_id") Long event_id) {
+        service.deleteEventById(event_id);
     }
 
 }

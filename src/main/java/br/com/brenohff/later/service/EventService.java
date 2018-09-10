@@ -70,8 +70,8 @@ public class EventService {
         }
     }
 
-    public void delete(Long event_id) {
-        eventRepository.delete(event_id);
+    public void deleteEventById(Long event_id) {
+        eventRepository.deleteById(event_id);
     }
 
 }
