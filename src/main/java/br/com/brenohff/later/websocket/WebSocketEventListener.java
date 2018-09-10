@@ -1,5 +1,6 @@
 package br.com.brenohff.later.websocket;
 
+import br.com.brenohff.later.model.LTChat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,35 +11,33 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
-import br.com.brenohff.later.model.LTChat;
-
 @Component
 public class WebSocketEventListener {
 
-	private static final Logger logger = LoggerFactory.getLogger(WebSocketEventListener.class);
+    private static final Logger logger = LoggerFactory.getLogger(WebSocketEventListener.class);
 
-	@Autowired
-	private SimpMessageSendingOperations messagingTemplate;
+    @Autowired
+    private SimpMessageSendingOperations messagingTemplate;
 
-	@EventListener
-	public void handleWebSocketConnectListener(SessionConnectedEvent event) {
-		logger.info("Received a new web socket connection");
-	}
+    @EventListener
+    public void handleWebSocketConnectListener(SessionConnectedEvent event) {
+        logger.info("Received a new web socket connection");
+    }
 
-	@EventListener
-	public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
-		StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
+    @EventListener
+    public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
+        StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
 
-		LTChat chatMessage = (LTChat) headerAccessor.getSessionAttributes().get("chatMessage");
+        LTChat chatMessage = (LTChat) headerAccessor.getSessionAttributes().get("chatMessage");
 
-		if (chatMessage != null && chatMessage.getUser().getName() != null) {
-			logger.info("User Disconnected : " + chatMessage.getUser().getName());
+        if (chatMessage != null && chatMessage.getUsers().getName() != null) {
+            logger.info("User Disconnected : " + chatMessage.getUsers().getName());
 
-			LTChat ltChat = new LTChat();
-			ltChat.setType(LTChat.MessageType.LEAVE);
-			ltChat.setUser(chatMessage.getUser());
+            LTChat ltChat = new LTChat();
+            ltChat.setType(LTChat.MessageType.LEAVE);
+            ltChat.setUsers(chatMessage.getUsers());
 
-			messagingTemplate.convertAndSend("/topic/event/" + chatMessage.getEventId(), ltChat);
-		}
-	}
+            messagingTemplate.convertAndSend("/topic/event/" + chatMessage.getEventId(), ltChat);
+        }
+    }
 }
