@@ -1,5 +1,6 @@
 package br.com.brenohff.later.api;
 
+import br.com.brenohff.later.enums.EventStatus;
 import br.com.brenohff.later.model.LTEvent;
 import br.com.brenohff.later.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +45,9 @@ public class EventController {
         return service.getEventsByUser(user_id);
     }
 
-    @GetMapping(value = "/deleteEventById")
-    public void deleteEventById(@RequestParam(value = "event_id") Long event_id) {
-        service.deleteEventById(event_id);
+    @GetMapping(value = "/changeEventStatus")
+    public void changeEventStatus(@RequestParam(value = "event_status") EventStatus eventStatus) {
+        service.changeEventStatus(eventStatus);
     }
 
 }
