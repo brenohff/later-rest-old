@@ -26,8 +26,8 @@ services:
 
   docker-app:
     container_name: later-backend
-    image: brenohff/later-backend
+    image: brenohff/later-backend:1.0.2
     ports:
-      - "8080:80"
+      - "8080:8080"
     depends_on:
       - postgres
