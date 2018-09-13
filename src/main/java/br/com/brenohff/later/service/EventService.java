@@ -83,6 +83,11 @@ public class EventService {
         }
 
         eventRepository.save(event);
+        categoryEventRepository.delete(categoryEventRepository.getLTCategoryEventByEventId(event.getId()));
+        for (LTCategory category : event.getCategories()) {
+            categoryEventRepository.save(new LTCategoryEvent(category.getId(), event.getId()));
+        }
+
         return ResponseEntity.ok().build();
     }
 
