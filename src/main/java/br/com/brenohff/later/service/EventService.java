@@ -10,6 +10,7 @@ import br.com.brenohff.later.repository.UserRepository;
 import br.com.brenohff.later.service.exceptions.ObjectNotFound;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -73,6 +74,21 @@ public class EventService {
 
     public void changeEventStatus(EventStatus eventStatus) {
         eventRepository.changeEventStatus(eventStatus);
+    }
+
+    public ResponseEntity<Void> updateEventWithoutImage(LTEvent event) {
+        LTEvent ltEvent = eventRepository.findOne(event.getId());
+        if (ltEvent == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        eventRepository.save(event);
+        return ResponseEntity.ok().build();
+    }
+
+    public ResponseEntity<Void> updateEventWithImage(String e, MultipartFile file) {
+
+        return ResponseEntity.ok().build();
     }
 
 }

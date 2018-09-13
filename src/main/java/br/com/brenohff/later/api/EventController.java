@@ -45,9 +45,20 @@ public class EventController {
         return service.getEventsByUser(user_id);
     }
 
+    @PutMapping(value = "/updateEventWithoutImage")
+    public ResponseEntity<Void> updateEventWithoutImage(@RequestBody LTEvent event){
+        return service.updateEventWithoutImage(event);
+    }
+
+    @PutMapping(value = "/updateEventWithImage")
+    public ResponseEntity<Void> updateEventWithImage(@RequestPart("event") String event, @RequestPart MultipartFile file){
+        return service.updateEventWithImage(event, file);
+    }
+
     @GetMapping(value = "/changeEventStatus")
     public void changeEventStatus(@RequestParam(value = "event_status") EventStatus eventStatus) {
         service.changeEventStatus(eventStatus);
     }
+
 
 }
