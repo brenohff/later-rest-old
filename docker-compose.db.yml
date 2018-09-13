@@ -1,0 +1,25 @@
+version: '3'
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:10-alpine
+    hostname: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: later_db
+      POSTGRES_USER: springboot
+      POSTGRES_PASSWORD: password
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    depends_on:
+      - postgres
+    ports:
+      - "5555:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: brenohff@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    restart: unless-stopped

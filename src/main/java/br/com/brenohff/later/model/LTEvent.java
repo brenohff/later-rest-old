@@ -40,6 +40,8 @@ public class LTEvent implements Serializable {
     private Date dt_post;
 
     private String title;
+
+    @Column(length = 5000)
     private String description;
     private EventStatus status;
     private String date;

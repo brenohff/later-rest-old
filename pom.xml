@@ -5,7 +5,7 @@
 
     <groupId>br.com.brenohff.later</groupId>
     <artifactId>later-backend</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
 
     <name>later-backend</name>
     <description>Later Backend</description>
@@ -114,7 +114,6 @@
                 <artifactId>dockerfile-maven-plugin</artifactId>
                 <version>${docker.version}</version>
                 <configuration>
-                    <contextDirectory>src/main/docker</contextDirectory>
                     <tag>${project.version}</tag>
                     <repository>${docker.repository}/${project.artifactId}</repository>
                 </configuration>
