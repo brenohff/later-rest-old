@@ -68,7 +68,7 @@ public class S3Service {
 
     }
 
-    private void deleteFile(String fileName) {
+    public void deleteFile(String fileName) {
         try {
             LOG.info("Deletando arquivo: " + fileName + "...");
             s3Client.deleteObject(bucket, fileName.substring(fileName.length() - 14));
