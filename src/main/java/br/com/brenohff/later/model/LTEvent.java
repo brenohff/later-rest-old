@@ -43,7 +43,6 @@ public class LTEvent implements Serializable {
 
     @Column(length = 5000)
     private String description;
-    private EventStatus status;
     private String date;
     private String hour;
     private String locale;
@@ -53,6 +52,7 @@ public class LTEvent implements Serializable {
     private Double lat;
     private Double lon;
 
+    private EventStatus status;
     private boolean isPrivate;
 
 }

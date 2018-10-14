@@ -1,5 +1,6 @@
 package br.com.brenohff.later.model;
 
+import br.com.brenohff.later.enums.UserType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -43,6 +44,8 @@ public class LTUser implements Serializable {
     private String link;
     private String image;
     private String image_long;
+
+    private UserType userType;
 
     @JsonIgnore
     public Set<LTEvent> getEvents() {
