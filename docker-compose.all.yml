@@ -26,7 +26,7 @@ services:
 
   docker-app:
     container_name: later-backend
-    image: brenohff/later-backend:1.0.7
+    image: brenohff/later-backend:1.0.8
     ports:
       - "8080:8080"
     depends_on:
