@@ -39,9 +39,6 @@ public class LTUser implements Serializable {
     private Date member_since;
 
     private String name;
-    private String birthday;
-    private String gender;
-    private String link;
     private String image;
     private String image_long;
 

@@ -24,16 +24,9 @@ public class CategoryController {
     UserService userService;
 
     @ApiOperation(value = "Busca todas as categorias.")
-    @PostMapping(value = "/saveCategory")
-    private ResponseEntity<Void> saveCategory(@RequestBody LTCategory category) {
-        service.saveCategories(category);
-        return ResponseEntity.ok().build();
-    }
-
     @GetMapping(value = "/getAll")
     private ResponseEntity<List<LTCategory>> getAll() {
-        List<LTCategory> ltCategory = service.getCategories();
-        return ResponseEntity.status(HttpStatus.OK).body(ltCategory);
+        return ResponseEntity.status(HttpStatus.OK).body(service.getCategories());
     }
 
 }

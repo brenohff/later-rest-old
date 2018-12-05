@@ -14,10 +14,6 @@ public class CategoryService {
 	@Autowired
 	CategoryRepository categoryRepository;
 
-	public void saveCategories(LTCategory category) {
-		categoryRepository.save(category);
-	}
-
 	public List<LTCategory> getCategories() {
 		return categoryRepository.findAll();
 	}

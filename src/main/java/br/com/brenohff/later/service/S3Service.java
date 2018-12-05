@@ -38,16 +38,16 @@ public class S3Service {
     @Value("${img.event.height.size}")
     private Integer height;
 
-    public URI uploadFile(MultipartFile multipartFile) {
+    URI uploadFile(MultipartFile multipartFile) {
         BufferedImage bufferedImage = imageService.getJpgImageFromFile(multipartFile);
         bufferedImage = imageService.resize(bufferedImage, width, height);
-        return uploadFile(imageService.getInputStream(bufferedImage, "jpg"), "image");
+        return uploadFile(imageService.getInputStream(bufferedImage, "jpg"));
     }
 
-    private URI uploadFile(InputStream inputStream, String contentType) {
+    private URI uploadFile(InputStream inputStream) {
         try {
             ObjectMetadata metadata = new ObjectMetadata();
-            metadata.setContentType(contentType);
+            metadata.setContentType("image");
             String fileName = generateFileName() + ".jpg";
 
             LOG.info("Iniciando upload do arquivo " + fileName + "...");
@@ -68,7 +68,7 @@ public class S3Service {
 
     }
 
-    public void deleteFile(String fileName) {
+    void deleteFile(String fileName) {
         try {
             LOG.info("Deletando arquivo: " + fileName + "...");
             s3Client.deleteObject(bucket, fileName.substring(fileName.length() - 14));

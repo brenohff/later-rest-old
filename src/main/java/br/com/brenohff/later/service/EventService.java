@@ -36,15 +36,17 @@ public class EventService {
         LTEvent event = new Gson().fromJson(e, LTEvent.class);
 
         event.setDt_post(new Date());
+        event.setStatus(EventStatus.AGUARDANDO);
         event.setImage(s3Service.uploadFile(file).toString());
         eventRepository.save(event);
+
         for (LTCategory category : event.getCategories()) {
             categoryEventRepository.save(new LTCategoryEvent(category.getId(), event.getId()));
         }
     }
 
-    public List<LTEvent> getPublic() {
-        return eventRepository.getPublic();
+    public List<LTEvent> getEventsActivesAndPublic() {
+        return eventRepository.getEventsActivesAndPublic();
     }
 
     public List<LTEvent> getAllEvents() {
@@ -62,14 +64,7 @@ public class EventService {
     }
 
     public List<LTEvent> getEventsByUser(String user_id) {
-
-        List<LTEvent> lt_events = eventRepository.getEventsByUser(user_id);
-
-        if (!lt_events.isEmpty()) {
-            return lt_events;
-        } else {
-            throw new ObjectNotFound("Nenhum evento encontrado.");
-        }
+        return eventRepository.getEventsByUser(user_id);
     }
 
     public void changeEventStatus(EventStatus eventStatus) {

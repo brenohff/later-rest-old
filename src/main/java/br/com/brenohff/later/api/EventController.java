@@ -30,9 +30,9 @@ public class EventController {
         return service.getAllEvents();
     }
 
-    @GetMapping(value = "/getPublic")
+    @GetMapping(value = "/getEventsActivesAndPublic")
     public ResponseEntity<List<LTEvent>> getPublic() {
-        return ResponseEntity.status(HttpStatus.OK).body(service.getPublic());
+        return ResponseEntity.status(HttpStatus.OK).body(service.getEventsActivesAndPublic());
     }
 
     @GetMapping(value = "/getEventById")
