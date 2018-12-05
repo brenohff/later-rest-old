@@ -7,9 +7,5 @@ public class ObjectAlreadyExists extends RuntimeException {
 	public ObjectAlreadyExists(String mensagem) {
 		super(mensagem);
 	}
-	
-	public ObjectAlreadyExists(String mensagem, Throwable motivo) {
-		super(mensagem, motivo);
-	}
 
 }
