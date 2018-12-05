@@ -42,6 +42,9 @@ public class LTCategory implements Serializable {
         this.baseColor700 = baseColor700;
     }
 
+    public LTCategory() {
+    }
+
     @JsonIgnore
     public Set<LTEvent> getEvents() {
         return events;
