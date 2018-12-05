@@ -60,5 +60,4 @@ public class EventController {
         service.changeEventStatus(eventStatus);
     }
 
-
 }

@@ -8,8 +8,9 @@ import br.com.brenohff.later.service.exceptions.ObjectNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 @Service
 public class UserService {
@@ -31,11 +32,11 @@ public class UserService {
     }
 
     public void saveUser(LTUser user) {
-        try {
-            user.setMember_since(new Date());
+        if (repository.getUserByID(user.getId()) == null) {
+            user.setMember_since(Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo")).getTime());
             user.setUserType(UserType.NORMAL);
             repository.save(user);
-        } catch (Exception e) {
+        } else {
             throw new ObjectAlreadyExists("Este usuário já está cadastrado.");
         }
     }

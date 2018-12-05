@@ -11,6 +11,6 @@ public interface UserRepository extends JpaRepository<LTUser, String> {
 	@Query("SELECT a "
 			+ "FROM LTUser a "
 			+ "WHERE a.id = :id")
-	public LTUser getUserByID(@Param("id") String id);
+	LTUser getUserByID(@Param("id") String id);
 
 }

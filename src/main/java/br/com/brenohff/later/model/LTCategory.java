@@ -35,6 +35,12 @@ public class LTCategory implements Serializable {
     private String baseColor;
     private String baseColor700;
 
+    public LTCategory(String url, String name, String baseColor, String baseColor700) {
+        this.url = url;
+        this.name = name;
+        this.baseColor = baseColor;
+        this.baseColor700 = baseColor700;
+    }
 
     @JsonIgnore
     public Set<LTEvent> getEvents() {

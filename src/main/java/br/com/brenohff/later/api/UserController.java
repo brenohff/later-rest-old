@@ -21,7 +21,7 @@ public class UserController {
 		return service.getAll();
 	}
 
-	@GetMapping(value = "/getUser")
+	@GetMapping(value = "/getUserById")
 	public LTUser getByFaceID(@RequestParam(value="id") String id) {
 		return service.getUserByID(id);
 	}
