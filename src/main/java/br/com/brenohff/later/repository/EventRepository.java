@@ -15,7 +15,7 @@ public interface EventRepository extends JpaRepository<LTEvent, Long> {
     @Query("SELECT e FROM LTEvent e WHERE e.users.id = :users_id")
     List<LTEvent> getEventsByUser(@Param("users_id") String users_id);
 
-    @Query(value = "SELECT * FROM event e WHERE e.is_private = false AND to_date(e.date, 'dd/mm/yyyy') < CURRENT_DATE AND e.status = 1", nativeQuery = true)
+    @Query(value = "SELECT * FROM event e WHERE e.is_private = false AND to_date(e.date, 'dd/mm/yyyy') >= CURRENT_DATE AND e.status = 1", nativeQuery = true)
     List<LTEvent> getEventsActivesAndPublic();
 
     @Transactional
