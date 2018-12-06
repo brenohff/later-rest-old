@@ -53,6 +53,10 @@ public class EventService {
         return eventRepository.getPendingEvents();
     }
 
+    public List<LTEvent> getEventsByCategory(Long category_id) {
+        return eventRepository.getEventsByCategory(category_id);
+    }
+
     public List<LTEvent> getAllEvents() {
         return eventRepository.findAll();
     }

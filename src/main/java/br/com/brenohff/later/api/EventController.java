@@ -40,6 +40,11 @@ public class EventController {
         return ResponseEntity.status(HttpStatus.OK).body(service.getPendingEvents());
     }
 
+    @GetMapping(value = "/getEventsByCategory")
+    public ResponseEntity<List<LTEvent>> getEventsByCategory(@RequestParam(value = "category_id") Long category_id) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.getEventsByCategory(category_id));
+    }
+
     @GetMapping(value = "/getEventById")
     public LTEvent getEventById(@RequestParam(value = "event_id") Long event_id) {
         return service.getEventById(event_id);

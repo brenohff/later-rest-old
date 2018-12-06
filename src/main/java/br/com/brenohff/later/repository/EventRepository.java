@@ -21,6 +21,9 @@ public interface EventRepository extends JpaRepository<LTEvent, Long> {
     @Query("SELECT e FROM LTEvent e WHERE e.status = 0")
     List<LTEvent> getPendingEvents();
 
+    @Query("SELECT e FROM LTEvent e LEFT JOIN e.categories ce WHERE ce.id = :category_id")
+    List<LTEvent> getEventsByCategory(@Param("category_id") Long category_id);
+
     @Transactional
     @Modifying
     @Query("UPDATE LTEvent e SET e.status = :eventStatus WHERE e.id = :event_id ")
