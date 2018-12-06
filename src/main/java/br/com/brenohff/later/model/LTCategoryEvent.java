@@ -29,4 +29,8 @@ public class LTCategoryEvent implements Serializable {
         this.category_id = category_id;
         this.event_id = event_id;
     }
+
+    public LTCategoryEvent() {
+    }
+
 }
