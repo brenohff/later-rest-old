@@ -35,6 +35,11 @@ public class EventController {
         return ResponseEntity.status(HttpStatus.OK).body(service.getEventsActivesAndPublic());
     }
 
+    @GetMapping(value = "/getPendingEvents")
+    public ResponseEntity<List<LTEvent>> getPendingEvents() {
+        return ResponseEntity.status(HttpStatus.OK).body(service.getPendingEvents());
+    }
+
     @GetMapping(value = "/getEventById")
     public LTEvent getEventById(@RequestParam(value = "event_id") Long event_id) {
         return service.getEventById(event_id);
@@ -46,18 +51,18 @@ public class EventController {
     }
 
     @PutMapping(value = "/updateEventWithoutImage")
-    public ResponseEntity<Void> updateEventWithoutImage(@RequestBody LTEvent event){
+    public ResponseEntity<Void> updateEventWithoutImage(@RequestBody LTEvent event) {
         return service.updateEventWithoutImage(event);
     }
 
     @PutMapping(value = "/updateEventWithImage")
-    public ResponseEntity<Void> updateEventWithImage(@RequestPart("event") String event, @RequestPart MultipartFile file){
+    public ResponseEntity<Void> updateEventWithImage(@RequestPart("event") String event, @RequestPart MultipartFile file) {
         return service.updateEventWithImage(event, file);
     }
 
     @GetMapping(value = "/changeEventStatus")
-    public void changeEventStatus(@RequestParam(value = "event_status") EventStatus eventStatus) {
-        service.changeEventStatus(eventStatus);
+    public void changeEventStatus(@RequestParam(value = "event_status") EventStatus eventStatus, @RequestParam(value = "event_id") Long event_id) {
+        service.changeEventStatus(event_id, eventStatus);
     }
 
 }

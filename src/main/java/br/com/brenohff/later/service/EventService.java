@@ -49,6 +49,10 @@ public class EventService {
         return eventRepository.getEventsActivesAndPublic();
     }
 
+    public List<LTEvent> getPendingEvents() {
+        return eventRepository.getPendingEvents();
+    }
+
     public List<LTEvent> getAllEvents() {
         return eventRepository.findAll();
     }
@@ -67,8 +71,8 @@ public class EventService {
         return eventRepository.getEventsByUser(user_id);
     }
 
-    public void changeEventStatus(EventStatus eventStatus) {
-        eventRepository.changeEventStatus(eventStatus);
+    public void changeEventStatus(Long event_id, EventStatus eventStatus) {
+        eventRepository.changeEventStatus(eventStatus, event_id);
     }
 
     public ResponseEntity<Void> updateEventWithoutImage(LTEvent event) {
