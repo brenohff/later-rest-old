@@ -20,7 +20,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <docker.version>1.4.4</docker.version>
+        <docker.version>1.4.9</docker.version>
         <docker.repository>brenohff</docker.repository>
     </properties>
 
