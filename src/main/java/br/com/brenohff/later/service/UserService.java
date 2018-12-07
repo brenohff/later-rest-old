@@ -41,4 +41,7 @@ public class UserService {
         }
     }
 
+    public List<LTUser> getAttendancesByEvent(Long event_id) {
+        return repository.getAttendancesByEvent(event_id);
+    }
 }
