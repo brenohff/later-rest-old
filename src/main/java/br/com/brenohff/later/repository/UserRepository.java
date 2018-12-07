@@ -12,6 +12,4 @@ public interface UserRepository extends JpaRepository<LTUser, String> {
 	@Query("SELECT a FROM LTUser a WHERE a.id = :id")
 	LTUser getUserByID(@Param("id") String id);
 
-	@Query("SELECT u FROM LTUser u LEFT JOIN u.attendances att WHERE att.id = :event_id")
-	List<LTUser> getAttendancesByEvent(@Param("event_id") Long event_id);
 }

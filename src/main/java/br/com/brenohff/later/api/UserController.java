@@ -26,11 +26,6 @@ public class UserController {
 		return service.getUserByID(id);
 	}
 
-    @GetMapping(value = "/getAttendancesByEvent")
-    public ResponseEntity<List<LTUser>> getAttendancesByEvent(@RequestParam(value = "event_id") Long event_id) {
-        return ResponseEntity.ok().body(service.getAttendancesByEvent(event_id));
-    }
-
 	@PostMapping(value = "/saveUser")
 	public void saveUser(@RequestBody LTUser user) {
 		service.saveUser(user);

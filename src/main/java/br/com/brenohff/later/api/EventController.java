@@ -49,11 +49,6 @@ public class EventController {
         return service.getEventsByUser(user_id);
     }
 
-    @GetMapping(value = "/getFavoritesEventsByUser")
-    public ResponseEntity<List<LTEvent>> getFavoritesEventsByUser(@RequestParam(value = "user_id") String user_id) {
-        return ResponseEntity.ok().body(service.getFavoritesEventsByUser(user_id));
-    }
-
     @GetMapping(value = "/changeEventStatus")
     public void changeEventStatus(@RequestParam(value = "event_status") EventStatus eventStatus, @RequestParam(value = "event_id") Long event_id) {
         service.changeEventStatus(event_id, eventStatus);
