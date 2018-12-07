@@ -28,19 +28,17 @@ public class LTUser implements Serializable {
     @Column(unique = true)
     private String email;
 
-    @Setter
-    @OneToMany(mappedBy = "users")
-    private Set<LTEvent> events;
-
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "user_event_favorites", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "event_id")})
-    @Setter
     private Set<LTEvent> favorites = new HashSet<>();
 
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "user_event_attendances", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "event_id")})
-    @Setter
     private Set<LTEvent> attendances = new HashSet<>();
+
+    @Setter
+    @OneToMany(mappedBy = "users")
+    private Set<LTEvent> events;
 
     @Setter
     @OneToMany(mappedBy = "users")
@@ -65,4 +63,13 @@ public class LTUser implements Serializable {
         return comments;
     }
 
+    @JsonIgnore
+    public Set<LTEvent> getFavorites() {
+        return favorites;
+    }
+
+    @JsonIgnore
+    public Set<LTEvent> getAttendances() {
+        return attendances;
+    }
 }

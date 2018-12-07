@@ -75,6 +75,10 @@ public class EventService {
         return eventRepository.getEventsByUser(user_id);
     }
 
+    public List<LTEvent> getFavoritesEventsByUser(String user_id) {
+        return eventRepository.getFavoritesEventsByUser(user_id);
+    }
+
     public void changeEventStatus(Long event_id, EventStatus eventStatus) {
         eventRepository.changeEventStatus(eventStatus, event_id);
     }
@@ -116,4 +120,5 @@ public class EventService {
     public void deleteImage(String file_name) {
         s3Service.deleteFile(file_name);
     }
+
 }
