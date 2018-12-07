@@ -70,4 +70,16 @@ public class EventController {
         service.changeEventStatus(event_id, eventStatus);
     }
 
+    @GetMapping(value = "/saveImage")
+    public ResponseEntity<Void> saveImage(@RequestPart MultipartFile file) {
+        service.saveImage(file);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping(value = "/deleteImage")
+    public ResponseEntity<Void> deleteImage(@RequestPart("file_name") String file_name) {
+        service.deleteImage(file_name);
+        return ResponseEntity.ok().build();
+    }
+
 }

@@ -109,4 +109,11 @@ public class EventService {
         return ResponseEntity.ok().build();
     }
 
+    public void saveImage(MultipartFile file) {
+        s3Service.uploadFile(file);
+    }
+
+    public void deleteImage(String file_name) {
+        s3Service.deleteFile(file_name);
+    }
 }
