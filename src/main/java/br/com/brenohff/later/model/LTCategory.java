@@ -24,9 +24,7 @@ public class LTCategory implements Serializable {
     private Long id;
 
     @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "category_event", joinColumns = {@JoinColumn(name = "category_id")}, inverseJoinColumns = {
-            @JoinColumn(name = "event_id")})
-
+    @JoinTable(name = "category_event", joinColumns = {@JoinColumn(name = "category_id")}, inverseJoinColumns = {@JoinColumn(name = "event_id")})
     @Setter
     private Set<LTEvent> events = new HashSet<>();
 

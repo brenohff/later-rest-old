@@ -32,6 +32,9 @@ public class LTEvent implements Serializable {
     @ManyToMany(mappedBy = "events")
     private Set<LTCategory> categories = new HashSet<>();
 
+    @ManyToMany(mappedBy = "events")
+    private Set<LTUser> favorites = new HashSet<>();
+
     @ManyToOne()
     @JoinColumn(name = "users_id", nullable = false)
     private LTUser users;
