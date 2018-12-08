@@ -80,12 +80,13 @@ public class EventService {
     }
 
     public ResponseEntity<Void> updateEventWithoutImage(LTEvent event) {
-        LTEvent ltEvent = eventRepository.findOne(event.getId());
-        if (ltEvent == null) {
+        if (eventRepository.findOne(event.getId()) == null) {
             return ResponseEntity.notFound().build();
         }
 
+        event.setDt_post(new Date());
         eventRepository.save(event);
+
         categoryEventRepository.delete(categoryEventRepository.getLTCategoryEventByEventId(event.getId()));
         for (LTCategory category : event.getCategories()) {
             categoryEventRepository.save(new LTCategoryEvent(category.getId(), event.getId()));
@@ -100,6 +101,7 @@ public class EventService {
         String oldImage = event.getImage();
 
         event.setImage(s3Service.uploadFile(file).toString());
+        event.setDt_post(new Date());
         eventRepository.save(event);
 
         s3Service.deleteFile(oldImage);
