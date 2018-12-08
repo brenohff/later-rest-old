@@ -19,12 +19,6 @@ public class EventController {
     @Autowired
     EventService service;
 
-    @PostMapping(value = "/saveEvent")
-    public ResponseEntity<Void> saveEvent(@RequestPart("event") String event, @RequestPart MultipartFile file) {
-        service.saveEvent(event, file);
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
-
     @GetMapping(value = "/getAll")
     public List<LTEvent> getAllEvents() {
         return service.getAllEvents();
@@ -55,16 +49,6 @@ public class EventController {
         return service.getEventsByUser(user_id);
     }
 
-    @PutMapping(value = "/updateEventWithoutImage")
-    public ResponseEntity<Void> updateEventWithoutImage(@RequestBody LTEvent event) {
-        return service.updateEventWithoutImage(event);
-    }
-
-    @PutMapping(value = "/updateEventWithImage")
-    public ResponseEntity<Void> updateEventWithImage(@RequestPart("event") String event, @RequestPart MultipartFile file) {
-        return service.updateEventWithImage(event, file);
-    }
-
     @GetMapping(value = "/changeEventStatus")
     public void changeEventStatus(@RequestParam(value = "event_status") EventStatus eventStatus, @RequestParam(value = "event_id") Long event_id) {
         service.changeEventStatus(event_id, eventStatus);
@@ -80,6 +64,22 @@ public class EventController {
     public ResponseEntity<Void> deleteImage(@RequestPart("file_name") String file_name) {
         service.deleteImage(file_name);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping(value = "/saveEvent")
+    public ResponseEntity<Void> saveEvent(@RequestPart("event") String event, @RequestPart MultipartFile file) {
+        service.saveEvent(event, file);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @PutMapping(value = "/updateEventWithoutImage")
+    public ResponseEntity<Void> updateEventWithoutImage(@RequestBody LTEvent event) {
+        return service.updateEventWithoutImage(event);
+    }
+
+    @PutMapping(value = "/updateEventWithImage")
+    public ResponseEntity<Void> updateEventWithImage(@RequestPart("event") String event, @RequestPart MultipartFile file) {
+        return service.updateEventWithImage(event, file);
     }
 
 }

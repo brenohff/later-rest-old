@@ -10,6 +10,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -26,6 +27,14 @@ public class LTUser implements Serializable {
 
     @Column(unique = true)
     private String email;
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "user_event_favorites", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "event_id")})
+    private Set<LTEvent> favorites = new HashSet<>();
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "user_event_attendances", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "event_id")})
+    private Set<LTEvent> attendances = new HashSet<>();
 
     @Setter
     @OneToMany(mappedBy = "users")
@@ -54,4 +63,13 @@ public class LTUser implements Serializable {
         return comments;
     }
 
+    @JsonIgnore
+    public Set<LTEvent> getFavorites() {
+        return favorites;
+    }
+
+    @JsonIgnore
+    public Set<LTEvent> getAttendances() {
+        return attendances;
+    }
 }

@@ -116,4 +116,5 @@ public class EventService {
     public void deleteImage(String file_name) {
         s3Service.deleteFile(file_name);
     }
+
 }
