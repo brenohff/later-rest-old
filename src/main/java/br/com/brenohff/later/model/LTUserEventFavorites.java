@@ -27,4 +27,11 @@ public class LTUserEventFavorites implements Serializable {
     @Id
     private String user_id;
 
+    public LTUserEventFavorites(Long event_id, String user_id) {
+        this.event_id = event_id;
+        this.user_id = user_id;
+    }
+
+    public LTUserEventFavorites() {
+    }
 }

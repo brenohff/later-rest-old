@@ -17,7 +17,6 @@ public class UserEventController {
     @Autowired
     UserEventService service;
 
-
     @GetMapping(value = "/getFavoritesEventsByUser")
     public ResponseEntity<List<LTEvent>> getFavoritesEventsByUser(@RequestParam(value = "user_id") String user_id) {
         return ResponseEntity.ok().body(service.getFavoritesEventsByUser(user_id));
@@ -26,6 +25,18 @@ public class UserEventController {
     @GetMapping(value = "/getAttendancesByEvent")
     public ResponseEntity<List<LTUser>> getAttendancesByEvent(@RequestParam(value = "event_id") Long event_id) {
         return ResponseEntity.ok().body(service.getAttendancesByEvent(event_id));
+    }
+
+    @PostMapping(value = "/saveFavoritesEvents")
+    public ResponseEntity<Void> saveFavoritesEvents(@RequestParam(value = "event_id") Long event_id, @RequestParam(value = "user_id") String user_id) {
+        service.saveFavoritesEvents(event_id, user_id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping(value = "/saveAttendances")
+    public ResponseEntity<Void> saveAttendances(@RequestParam(value = "event_id") Long event_id, @RequestParam(value = "user_id") String user_id) {
+        service.saveAttendances(event_id, user_id);
+        return ResponseEntity.ok().build();
     }
 
 }
