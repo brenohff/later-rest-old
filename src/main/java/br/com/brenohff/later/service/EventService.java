@@ -97,9 +97,12 @@ public class EventService {
     public ResponseEntity<Void> updateEventWithImage(String e, MultipartFile file) {
         LTEvent event = new Gson().fromJson(e, LTEvent.class);
 
+        String oldImage = event.getImage();
+
         event.setImage(s3Service.uploadFile(file).toString());
         eventRepository.save(event);
-        s3Service.deleteFile(event.getImage());
+
+        s3Service.deleteFile(oldImage);
 
         categoryEventRepository.delete(categoryEventRepository.getLTCategoryEventByEventId(event.getId()));
         for (LTCategory category : event.getCategories()) {
