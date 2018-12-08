@@ -17,4 +17,11 @@ public class LTUserEventPK implements Serializable {
     private Long event_id;
     private String user_id;
 
+    public LTUserEventPK() {
+    }
+
+    public LTUserEventPK(Long event_id, String user_id) {
+        this.event_id = event_id;
+        this.user_id = user_id;
+    }
 }
