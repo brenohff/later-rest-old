@@ -2,6 +2,8 @@ package br.com.brenohff.later.api;
 
 import br.com.brenohff.later.model.LTEvent;
 import br.com.brenohff.later.model.LTUser;
+import br.com.brenohff.later.model.LTUserEventAttendances;
+import br.com.brenohff.later.model.LTUserEventFavorites;
 import br.com.brenohff.later.service.UserEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,14 +30,14 @@ public class UserEventController {
     }
 
     @PostMapping(value = "/saveFavoritesEvents")
-    public ResponseEntity<Void> saveFavoritesEvents(@RequestParam(value = "event_id") Long event_id, @RequestParam(value = "user_id") String user_id) {
-        service.saveFavoritesEvents(event_id, user_id);
+    public ResponseEntity<Void> saveFavoritesEvents(@RequestBody LTUserEventFavorites favorites) {
+        service.saveFavoritesEvents(favorites.getEvent_id(), favorites.getUser_id());
         return ResponseEntity.ok().build();
     }
 
     @PostMapping(value = "/saveAttendances")
-    public ResponseEntity<Void> saveAttendances(@RequestParam(value = "event_id") Long event_id, @RequestParam(value = "user_id") String user_id) {
-        service.saveAttendances(event_id, user_id);
+    public ResponseEntity<Void> saveAttendances(@RequestBody LTUserEventAttendances attendances) {
+        service.saveAttendances(attendances.getEvent_id(), attendances.getUser_id());
         return ResponseEntity.ok().build();
     }
 
