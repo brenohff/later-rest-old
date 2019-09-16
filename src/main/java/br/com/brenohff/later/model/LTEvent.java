@@ -32,6 +32,12 @@ public class LTEvent implements Serializable {
     @ManyToMany(mappedBy = "events")
     private Set<LTCategory> categories = new HashSet<>();
 
+    @ManyToMany(mappedBy = "favorites")
+    private Set<LTUser> favorites = new HashSet<>();
+
+    @ManyToMany(mappedBy = "attendances")
+    private Set<LTUser> attendances = new HashSet<>();
+
     @ManyToOne()
     @JoinColumn(name = "users_id", nullable = false)
     private LTUser users;
@@ -43,7 +49,6 @@ public class LTEvent implements Serializable {
 
     @Column(length = 5000)
     private String description;
-    private EventStatus status;
     private String date;
     private String hour;
     private String locale;
@@ -53,6 +58,7 @@ public class LTEvent implements Serializable {
     private Double lat;
     private Double lon;
 
+    private EventStatus status;
     private boolean isPrivate;
 
 }

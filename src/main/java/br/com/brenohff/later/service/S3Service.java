@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -39,16 +38,16 @@ public class S3Service {
     @Value("${img.event.height.size}")
     private Integer height;
 
-    public URI uploadFile(MultipartFile multipartFile) {
+    URI uploadFile(MultipartFile multipartFile) {
         BufferedImage bufferedImage = imageService.getJpgImageFromFile(multipartFile);
         bufferedImage = imageService.resize(bufferedImage, width, height);
-        return uploadFile(imageService.getInputStream(bufferedImage, "jpg"), "image");
+        return uploadFile(imageService.getInputStream(bufferedImage, "jpg"));
     }
 
-    public URI uploadFile(InputStream inputStream, String contentType) {
+    private URI uploadFile(InputStream inputStream) {
         try {
             ObjectMetadata metadata = new ObjectMetadata();
-            metadata.setContentType(contentType);
+            metadata.setContentType("image");
             String fileName = generateFileName() + ".jpg";
 
             LOG.info("Iniciando upload do arquivo " + fileName + "...");
@@ -69,12 +68,24 @@ public class S3Service {
 
     }
 
+    void deleteFile(String fileName) {
+        try {
+            LOG.info("Deletando arquivo: " + fileName + "...");
+            s3Client.deleteObject(bucket, fileName.substring(fileName.length() - 14));
+            LOG.info("Arquivo " + fileName + " deletado com sucesso!");
+        } catch (AmazonServiceException e) {
+            LOG.info("AmazonServiceException: " + e.getErrorMessage());
+            LOG.info("Status code: " + e.getErrorCode());
+            throw new FileException("AmazonServiceException: " + e.getErrorMessage());
+        }
+    }
+
     private String generateFileName() {
         String letras = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         Random random = new Random();
         StringBuilder armazenaChaves = new StringBuilder();
         int index;
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             index = random.nextInt(letras.length());
             armazenaChaves.append(letras, index, index + 1);
         }

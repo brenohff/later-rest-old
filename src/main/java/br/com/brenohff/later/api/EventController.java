@@ -19,20 +19,24 @@ public class EventController {
     @Autowired
     EventService service;
 
-    @PostMapping(value = "/saveEvent")
-    public ResponseEntity<Void> saveEvent(@RequestPart("event") String event, @RequestPart MultipartFile file) {
-        service.saveEvent(event, file);
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
-
     @GetMapping(value = "/getAll")
     public List<LTEvent> getAllEvents() {
         return service.getAllEvents();
     }
 
-    @GetMapping(value = "/getPublic")
+    @GetMapping(value = "/getEventsActivesAndPublic")
     public ResponseEntity<List<LTEvent>> getPublic() {
-        return ResponseEntity.status(HttpStatus.OK).body(service.getPublic());
+        return ResponseEntity.status(HttpStatus.OK).body(service.getEventsActivesAndPublic());
+    }
+
+    @GetMapping(value = "/getPendingEvents")
+    public ResponseEntity<List<LTEvent>> getPendingEvents() {
+        return ResponseEntity.status(HttpStatus.OK).body(service.getPendingEvents());
+    }
+
+    @GetMapping(value = "/getEventsByCategory")
+    public ResponseEntity<List<LTEvent>> getEventsByCategory(@RequestParam(value = "category_id") Long category_id) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.getEventsByCategory(category_id));
     }
 
     @GetMapping(value = "/getEventById")
@@ -46,8 +50,36 @@ public class EventController {
     }
 
     @GetMapping(value = "/changeEventStatus")
-    public void changeEventStatus(@RequestParam(value = "event_status") EventStatus eventStatus) {
-        service.changeEventStatus(eventStatus);
+    public void changeEventStatus(@RequestParam(value = "event_status") EventStatus eventStatus, @RequestParam(value = "event_id") Long event_id) {
+        service.changeEventStatus(event_id, eventStatus);
+    }
+
+    @GetMapping(value = "/saveImage")
+    public ResponseEntity<Void> saveImage(@RequestPart MultipartFile file) {
+        service.saveImage(file);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping(value = "/deleteImage")
+    public ResponseEntity<Void> deleteImage(@RequestPart("file_name") String file_name) {
+        service.deleteImage(file_name);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping(value = "/saveEvent")
+    public ResponseEntity<Void> saveEvent(@RequestPart("event") String event, @RequestPart MultipartFile file) {
+        service.saveEvent(event, file);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @PutMapping(value = "/updateEventWithoutImage")
+    public ResponseEntity<Void> updateEventWithoutImage(@RequestBody LTEvent event) {
+        return service.updateEventWithoutImage(event);
+    }
+
+    @PutMapping(value = "/updateEventWithImage")
+    public ResponseEntity<Void> updateEventWithImage(@RequestPart("event") String event, @RequestPart MultipartFile file) {
+        return service.updateEventWithImage(event, file);
     }
 
 }

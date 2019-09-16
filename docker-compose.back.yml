@@ -1,0 +1,7 @@
+version: '3'
+services:
+  docker-app:
+    container_name: later-backend
+    image: brenohff/later-backend:1.1.0
+    ports:
+      - "8080:8080"

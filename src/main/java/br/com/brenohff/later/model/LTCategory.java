@@ -24,9 +24,7 @@ public class LTCategory implements Serializable {
     private Long id;
 
     @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "category_event", joinColumns = {@JoinColumn(name = "category_id")}, inverseJoinColumns = {
-            @JoinColumn(name = "event_id")})
-
+    @JoinTable(name = "category_event", joinColumns = {@JoinColumn(name = "category_id")}, inverseJoinColumns = {@JoinColumn(name = "event_id")})
     @Setter
     private Set<LTEvent> events = new HashSet<>();
 
@@ -35,6 +33,15 @@ public class LTCategory implements Serializable {
     private String baseColor;
     private String baseColor700;
 
+    public LTCategory(String url, String name, String baseColor, String baseColor700) {
+        this.url = url;
+        this.name = name;
+        this.baseColor = baseColor;
+        this.baseColor700 = baseColor700;
+    }
+
+    public LTCategory() {
+    }
 
     @JsonIgnore
     public Set<LTEvent> getEvents() {

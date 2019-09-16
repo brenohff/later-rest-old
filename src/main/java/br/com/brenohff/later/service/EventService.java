@@ -10,6 +10,7 @@ import br.com.brenohff.later.repository.UserRepository;
 import br.com.brenohff.later.service.exceptions.ObjectNotFound;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,15 +36,25 @@ public class EventService {
         LTEvent event = new Gson().fromJson(e, LTEvent.class);
 
         event.setDt_post(new Date());
+        event.setStatus(EventStatus.AGUARDANDO);
         event.setImage(s3Service.uploadFile(file).toString());
         eventRepository.save(event);
+
         for (LTCategory category : event.getCategories()) {
             categoryEventRepository.save(new LTCategoryEvent(category.getId(), event.getId()));
         }
     }
 
-    public List<LTEvent> getPublic() {
-        return eventRepository.getPublic();
+    public List<LTEvent> getEventsActivesAndPublic() {
+        return eventRepository.getEventsActivesAndPublic();
+    }
+
+    public List<LTEvent> getPendingEvents() {
+        return eventRepository.getPendingEvents();
+    }
+
+    public List<LTEvent> getEventsByCategory(Long category_id) {
+        return eventRepository.getEventsByCategory(category_id);
     }
 
     public List<LTEvent> getAllEvents() {
@@ -61,18 +72,54 @@ public class EventService {
     }
 
     public List<LTEvent> getEventsByUser(String user_id) {
-
-        List<LTEvent> lt_events = eventRepository.getEventsByUser(user_id);
-
-        if (!lt_events.isEmpty()) {
-            return lt_events;
-        } else {
-            throw new ObjectNotFound("Nenhum evento encontrado.");
-        }
+        return eventRepository.getEventsByUser(user_id);
     }
 
-    public void changeEventStatus(EventStatus eventStatus) {
-        eventRepository.changeEventStatus(eventStatus);
+    public void changeEventStatus(Long event_id, EventStatus eventStatus) {
+        eventRepository.changeEventStatus(eventStatus, event_id);
+    }
+
+    public ResponseEntity<Void> updateEventWithoutImage(LTEvent event) {
+        if (eventRepository.findOne(event.getId()) == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        event.setDt_post(new Date());
+        eventRepository.save(event);
+
+        categoryEventRepository.delete(categoryEventRepository.getLTCategoryEventByEventId(event.getId()));
+        for (LTCategory category : event.getCategories()) {
+            categoryEventRepository.save(new LTCategoryEvent(category.getId(), event.getId()));
+        }
+
+        return ResponseEntity.ok().build();
+    }
+
+    public ResponseEntity<Void> updateEventWithImage(String e, MultipartFile file) {
+        LTEvent event = new Gson().fromJson(e, LTEvent.class);
+
+        String oldImage = event.getImage();
+
+        event.setImage(s3Service.uploadFile(file).toString());
+        event.setDt_post(new Date());
+        eventRepository.save(event);
+
+        s3Service.deleteFile(oldImage);
+
+        categoryEventRepository.delete(categoryEventRepository.getLTCategoryEventByEventId(event.getId()));
+        for (LTCategory category : event.getCategories()) {
+            categoryEventRepository.save(new LTCategoryEvent(category.getId(), event.getId()));
+        }
+
+        return ResponseEntity.ok().build();
+    }
+
+    public void saveImage(MultipartFile file) {
+        s3Service.uploadFile(file);
+    }
+
+    public void deleteImage(String file_name) {
+        s3Service.deleteFile(file_name);
     }
 
 }

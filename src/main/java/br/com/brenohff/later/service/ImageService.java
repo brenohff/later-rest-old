@@ -17,7 +17,7 @@ import java.io.InputStream;
 @Service
 public class ImageService {
 
-    public BufferedImage getJpgImageFromFile(MultipartFile uploadedFile) {
+    BufferedImage getJpgImageFromFile(MultipartFile uploadedFile) {
         String ext = FilenameUtils.getExtension(uploadedFile.getOriginalFilename());
         if (!"png".equals(ext) && !"jpg".equals(ext) && !"jpeg".equals(ext)) {
             throw new FileException("Somente imagens JPG e PNG são permitidas =(");
@@ -40,7 +40,7 @@ public class ImageService {
         return jpgImage;
     }
 
-    public InputStream getInputStream(BufferedImage image, String extension) {
+    InputStream getInputStream(BufferedImage image, String extension) {
         try {
             ByteArrayOutputStream os = new ByteArrayOutputStream();
             ImageIO.write(image, extension, os);
@@ -57,7 +57,7 @@ public class ImageService {
         return Scalr.crop(image, (image.getWidth() / 2) - (min / 2), (image.getHeight() / 2) - (min / 2), min, min);
     }
 
-    public BufferedImage resize(BufferedImage image, int width, int height) {
+    BufferedImage resize(BufferedImage image, int width, int height) {
         return Scalr.resize(image, Scalr.Method.ULTRA_QUALITY, width, height);
     }
 }

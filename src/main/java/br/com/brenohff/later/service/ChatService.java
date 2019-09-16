@@ -1,13 +1,13 @@
 package br.com.brenohff.later.service;
 
-import java.util.Date;
-import java.util.List;
-
+import br.com.brenohff.later.model.LTChat;
+import br.com.brenohff.later.repository.ChatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.brenohff.later.model.LTChat;
-import br.com.brenohff.later.repository.ChatRepository;
+import java.util.Calendar;
+import java.util.List;
+import java.util.TimeZone;
 
 @Service
 public class ChatService {
@@ -16,7 +16,7 @@ public class ChatService {
     private ChatRepository chatRepository;
 
     public LTChat saveChat(LTChat message) {
-        message.setDtPost(new Date());
+        message.setDtPost(Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo")).getTime());
         chatRepository.save(message);
         return message;
     }
